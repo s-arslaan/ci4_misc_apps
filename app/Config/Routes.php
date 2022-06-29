@@ -33,6 +33,12 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+// routing if user is not logged in
+// $routes->group('', ['filter' => 'isloggedIn'], function ($routes) {
+//     $routes->get('', 'Home::index');
+//     $routes->get('index', 'Home::index');
+// });
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
