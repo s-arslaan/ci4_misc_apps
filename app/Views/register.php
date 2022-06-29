@@ -13,9 +13,9 @@
 
 <body>
 
-    <?php if ($page_session->getTempdata('success')) : ?>
+    <!-- <?php if ($page_session->getTempdata('success')) : ?>
         <?= '<h1>' . $page_session->getTempdata('success') . '</h1>'; ?>;
-    <?php endif; ?>
+    <?php endif; ?> -->
 
     <div class="container">
         <div class="row justify-content-center align-items-center">

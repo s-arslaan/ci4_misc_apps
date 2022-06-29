@@ -5,9 +5,9 @@
 
 <ul>
 <?php
-foreach ($users as $user) {
-    echo "<li>$user[0] - $user[1]</li>";
-}
+// foreach ($users as $user) {
+//     echo "<li>".$user['name']." - ".$user['email']."</li>";
+// }
 // print_r($users);
 ?>
 </ul>

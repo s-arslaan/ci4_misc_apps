@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
+use App\Models\Login;
 use CodeIgniter\I18n\Time;
 use DateTime;
 
@@ -19,7 +20,7 @@ class Auth extends BaseController
     public function __construct()
     {
         $this->userModel = new Users();
-        // $this->rsaFunction = new RsaFunction();
+        $this->loginModel = new Login();
         $this->session = \Config\Services::session();
         helper('date');
     }
@@ -41,29 +42,43 @@ class Auth extends BaseController
 
             $email = $this->request->getVar('email', FILTER_SANITIZE_EMAIL);
             $password = $this->request->getVar('password');
+            $curr_time = Time::now(app_timezone(), 'en_US');
 
-            $userdata = $this->userModel->emailExists($email);
+            $userdata = $this->loginModel->searchEmail($email);
 
             if ($userdata) {
-                // $raw_password = $this->rsaFunction->encrypt($userdata->prime_no_1, $userdata->prime_no_2, $this->request->getVar('password'));
 
                 if ($userdata->password === md5($password)) {
 
                     if ($userdata->status == 1) {
 
+                        $loginInfo = [
+                            'unique_id' => $userdata->unique_id,
+                            'agent' => $this->getUserAgentInfo(),
+                            'platform' => $this->getUserAgentInfo(true),
+                            'ip' => $this->request->getIPAddress(),
+                            'login_time' => $curr_time
+                        ];
+
+                        $la_id = $this->loginModel->saveLoginInfo($loginInfo);
+                        if($la_id) {
+                            $this->session->set('login_activity_id', $la_id);
+                        }
+
                         $this->session->set('logged_user', $userdata->unique_id);
                         $this->session->setTempdata('success', 'Welcome ' . strtoupper($userdata->name));
                         return redirect()->to(base_url());
+
                     } else {
                         $this->session->setTempdata('error', 'Please verify your email');
                         return redirect()->to(current_url());
                     }
                 } else {
-                    $this->session->setTempdata('error', 'Incorrect email or password');
+                    $this->session->setTempdata('error', 'Incorrect email or password - pass');
                     return redirect()->to(current_url());
                 }
             } else {
-                $this->session->setTempdata('error', 'Incorrect email or password');
+                $this->session->setTempdata('error', 'Incorrect email or password - email');
                 return redirect()->to(current_url());
             }
         }
@@ -72,12 +87,12 @@ class Auth extends BaseController
             'title' => 'Shama | Login',
             'team' => 'GSWT',
         );
+
         return view('login', $data);
     }
 
     public function register()
     {
-
         if ($this->request->getMethod() == 'post') {
 
             $name = htmlentities($this->request->getVar('name'));
@@ -91,7 +106,7 @@ class Auth extends BaseController
             $userdata = array(
                 'name' => $name,
                 'email' => $email,
-                'password' => md5($password),
+                'password' => $password,
                 'mobile' => $mobile,
                 // 'activation_date' => date('Y-m-d h:i:s'),
                 'activation_date' => $curr_time,
@@ -99,7 +114,7 @@ class Auth extends BaseController
             );
             // die(print_r($userdata));
 
-            if ($this->userModel->emailExists($email) == false) {
+            if ($this->loginModel->searchEmail($email) == false) {
 
                 if ($this->userModel->addUser($userdata)) {
                     // $subject = 'RSA GNU | Account Activation';
@@ -153,6 +168,13 @@ class Auth extends BaseController
 
     public function logout()
     {
+        $curr_time = Time::now(app_timezone(), 'en_US');
+
+        if(session()->has('login_activity_id')) {
+            $la_id = session()->get('login_activity_id');
+            $this->loginModel->updateLogoutTime($la_id, $curr_time);
+        }
+
         session()->remove('logged_user');
         session()->destroy();
         return redirect()->to("./auth/login");
@@ -170,7 +192,34 @@ class Auth extends BaseController
         }
     }
 
-    // only login/register is allowed
+    public function getUserAgentInfo($platform_flag = false)
+    {
+
+        $agent = $this->request->getUserAgent();
+
+        if ($agent->isBrowser()) {
+            $currentAgent = $agent->getBrowser() . ' ' . $agent->getVersion();
+        } elseif ($agent->isRobot()) {
+            $currentAgent = $agent->getRobot();
+        } elseif ($agent->isMobile()) {
+            $currentAgent = $agent->getMobile();
+        } else {
+            $currentAgent = 'Unidentified User Agent';
+        }
+
+        // $res = array(
+        //     'agent' => $currentAgent,
+        //     'platform' => 
+        // );
+
+        if ($platform_flag)
+            return $agent->getPlatform();
+        else
+            return $currentAgent;
+        // echo "<pre>";
+        // print_r($res);
+    }
+
     public function _remap($method, $param = null)
     {
         if (method_exists($this, $method)) {
