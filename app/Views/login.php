@@ -30,12 +30,12 @@
                                 <div class="card-body">
                                     <form method="POST">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" />
-                                            <label for="inputEmail">Email address</label>
+                                            <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" required />
+                                            <label for="inputEmail">Email address*</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password" />
-                                            <label for="inputPassword">Password</label>
+                                            <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password" required />
+                                            <label for="inputPassword">Password*</label>
                                         </div>
                                         <!-- <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
@@ -48,11 +48,11 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="<?= base_url() ?>/register">Need an account? Sign up!</a></div>
+                                    <div class="small"><a href="<?= base_url() ?>/auth/register">Need an account? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
 <?= $this->include("layouts/footer"); ?>
