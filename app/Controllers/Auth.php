@@ -85,7 +85,6 @@ class Auth extends BaseController
 
         $data = array(
             'title' => 'Shama | Login',
-            'team' => 'GSWT',
         );
 
         return view('login', $data);
@@ -134,7 +133,6 @@ class Auth extends BaseController
 
         $data = array(
             'title' => 'Shama | Register User',
-            'team' => 'GSWT',
         );
         return view('register', $data);
     }
