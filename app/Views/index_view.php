@@ -8,6 +8,8 @@
 foreach ($users as $user) {
     echo "<li>".$user->name." - ".$user->email."</li>";
 }
+
+print_r($_SESSION);
 // print_r($users);
 ?>
 </ul>
