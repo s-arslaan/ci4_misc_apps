@@ -142,7 +142,7 @@ class Auth extends BaseController
     {
         $data = [];
         if (!empty($unique_id)) {
-            $userdata = $this->userModel->verifyUniqueID($unique_id);
+            $userdata = $this->userModel->getUserDetails($unique_id);
             // die(print_r($data));
             if ($userdata) {
                 if ($this->isLinkValid($userdata->activation_date)) {

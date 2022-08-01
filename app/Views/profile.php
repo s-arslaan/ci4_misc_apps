@@ -7,7 +7,7 @@
 <?php
 
 print_r($_SESSION);
-// print_r($users);
+print_r($user);
 ?>
 </ul>
 </div>

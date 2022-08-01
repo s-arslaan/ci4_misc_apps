@@ -21,7 +21,6 @@ class Home extends BaseController
         
         $data = array(
             'title' => 'Shama',
-            'team' => 'shama education',
             'users' => $this->userModel->getUsers(),
         );
 
@@ -33,11 +32,13 @@ class Home extends BaseController
         if(!session()->has('logged_user')) {
             return redirect()->to("./auth/login");
         }
+
+        $unique_id = session()->get('logged_user');
+        $userdata = $this->userModel->getUserDetails($unique_id);
         
         $data = array(
-            'title' => 'Shama',
-            'team' => 'shama education',
-            'users' => $this->userModel->getUsers(),
+            'title' => 'Shama | User Profile',
+            'user' => $userdata,
         );
 
         return view('profile', $data);

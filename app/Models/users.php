@@ -27,11 +27,11 @@ class Users extends Model
         }
     }
 
-    public function verifyUniqueID($id)
+    public function getUserDetails($id)
     {
 
         $builder = $this->db->table($this->DBPrefix . 'users');
-        $builder->select('activation_date,unique_id,status')->where('unique_id', $id);
+        $builder->select('name,email,mobile,activation_date,unique_id,status')->where('unique_id', $id);
         $res = $builder->get();
 
         if (count($res->getResultArray()) == 1) {
