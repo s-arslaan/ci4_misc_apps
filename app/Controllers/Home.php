@@ -27,6 +27,21 @@ class Home extends BaseController
 
         return view('index_view', $data);
     }
+    
+    public function profile()
+    {   
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+        
+        $data = array(
+            'title' => 'Shama',
+            'team' => 'shama education',
+            'users' => $this->userModel->getUsers(),
+        );
+
+        return view('profile', $data);
+    }
 
     public function loginActivity()
     {
