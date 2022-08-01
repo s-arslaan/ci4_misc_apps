@@ -20,8 +20,8 @@
                 <div class="card-body text-center">
                     <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"> -->
                     <i class="fa fa-user fa-2xl" aria-hidden="true"></i>
-                    <h5 class="my-3">John Smith</h5>
-                    <p class="text-muted mb-3">Full Stack Developer</p>
+                    <h5 class="mt-3 mb-1">John Smith</h5>
+                    <p class="text-muted mb-3">Admin</p>
                     <div class="d-flex justify-content-center mb-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
                         <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
@@ -63,7 +63,7 @@
                             <p class="mb-0">Full Name</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">Johnatan Smith</p>
+                            <p class="text-muted mb-0"><?= $user->name ?></p>
                         </div>
                     </div>
                     <hr>
@@ -72,20 +72,18 @@
                             <p class="mb-0">Email</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">example@example.com</p>
+                            <p class="text-muted mb-0"><?= $user->email ?></p>
                         </div>
                     </div>
-                    <hr>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
                             <p class="mb-0">Mobile</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">(098) 765-4321</p>
+                            <p class="text-muted mb-0"><?= $user->mobile ?></p>
                         </div>
                     </div>
-                    <hr>
                 </div>
             </div>
             <!-- <div class="row">
@@ -153,7 +151,7 @@
     <?php
 
     // print_r($_SESSION);
-    // print_r($user);
+    print_r($user);
     ?>
 </div>
 <!-- Edit Profile Modal -->
