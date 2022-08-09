@@ -1,7 +1,7 @@
 <?php
 
-use CodeIgniter\Exceptions\PageNotFoundException;
 namespace App\Controllers;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\HomeModel;
 
@@ -58,17 +58,18 @@ class Home extends BaseController
 
         if ($this->request->getMethod() == 'post') {
 
-            if($this->request->getVar('edit-password') !== null) {
+            if($this->request->getVar('new-pass') !== null) {
 
                 $data = array(
                     'id' => session()->get('logged_user'),
-                    'password' => $this->request->getVar('edit-password')
+                    'curr_pass' => $this->request->getVar('curr-pass'),
+                    'new_pass' => $this->request->getVar('new-pass')
                 );
 
                 if($this->userModel->updateUserPassword($data)) {
-                    $this->session->setTempdata('success', 'Profile Updated');
+                    $this->session->setTempdata('success', 'Password Changed');
                 } else {
-                    $this->session->setTempdata('error', 'Some Error Occurred');
+                    $this->session->setTempdata('error', 'Invalid Current Password!');
                 }
 
             } else {

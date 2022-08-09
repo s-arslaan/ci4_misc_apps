@@ -20,7 +20,7 @@
                 <div class="card-body text-center">
                     <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"> -->
                     <i class="fa fa-user fa-2xl" aria-hidden="true"></i>
-                    <h5 class="mt-3 mb-1">John Smith</h5>
+                    <h5 class="mt-3 mb-1"><?= $user->name ?></h5>
                     <p class="text-muted mb-3">Admin</p>
                     <div class="d-flex justify-content-center mb-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Save Changes" id="submit-btn" disabled>
+                    <input type="submit" class="btn btn-primary" value="Save Changes" id="submit-btn">
                 </div>
             </form>
         </div>

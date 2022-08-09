@@ -43,11 +43,19 @@ class Users extends Model
     public function updateUserPassword($data)
     {
         $builder = $this->db->table($this->DBPrefix . 'users');
-        $builder->where('unique_id', $data['id']);
-        $builder->update(['password' => md5($data['password'])]);
+        $builder->select('password')->where('unique_id', $data['id']);
+        $pass = $builder->get()->getRow()->password;
 
-        if ($this->db->affectedRows() == 1) {
-            return True;
+        if($pass === md5($data['curr_pass'])) {
+            
+            $builder->where('unique_id', $data['id']);
+            $builder->update(['password' => md5($data['new_pass'])]);
+    
+            if ($this->db->affectedRows() == 1) {
+                return True;
+            } else {
+                return False;
+            }
         } else {
             return False;
         }
