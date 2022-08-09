@@ -27,6 +27,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
   <script>
+    toastr.options.positionClass = "toast-bottom-right";
+    toastr.options.timeOut = 2000;
+    toastr.options.extendedTimeOut = 1000;
+    
     <?php if (session()->getTempdata('success')) : ?>
       toastr.success(<?= "'" . session()->getTempdata('success') . "'"; ?>);
       <?php session()->removeTempdata('success'); ?>
@@ -37,8 +41,6 @@
       <?php session()->removeTempdata('error'); ?>
     <?php endif; ?>
 
-    toastr.options.timeOut = 2000;
-    toastr.options.extendedTimeOut = 1000;
   </script>
 </body>
 

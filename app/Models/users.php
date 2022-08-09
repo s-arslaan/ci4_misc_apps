@@ -26,6 +26,32 @@ class Users extends Model
             return False;
         }
     }
+    
+    public function updateUserDetails($data)
+    {
+        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder->where('unique_id', $data['id']);
+        $builder->update(['name' => $data['name'], 'mobile' => $data['mobile']]);
+
+        if ($this->db->affectedRows() == 1) {
+            return True;
+        } else {
+            return False;
+        }
+    }
+    
+    public function updateUserPassword($data)
+    {
+        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder->where('unique_id', $data['id']);
+        $builder->update(['password' => md5($data['password'])]);
+
+        if ($this->db->affectedRows() == 1) {
+            return True;
+        } else {
+            return False;
+        }
+    }
 
     public function getUserDetails($id)
     {

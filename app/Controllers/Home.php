@@ -1,8 +1,13 @@
 <?php
 
+use CodeIgniter\Exceptions\PageNotFoundException;
 namespace App\Controllers;
 use App\Models\Users;
 use App\Models\HomeModel;
+
+/**
+ * @property IncomingRequest $request 
+ */
 
 class Home extends BaseController
 {
@@ -11,6 +16,7 @@ class Home extends BaseController
     {   
         $this->userModel = new Users();
         $this->homeModel = new HomeModel();
+        $this->session = \Config\Services::session();
     }
 
     public function index()
@@ -43,6 +49,47 @@ class Home extends BaseController
 
         return view('profile', $data);
     }
+    
+    public function editProfile()
+    {   
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        if ($this->request->getMethod() == 'post') {
+
+            if($this->request->getVar('edit-password') !== null) {
+
+                $data = array(
+                    'id' => session()->get('logged_user'),
+                    'password' => $this->request->getVar('edit-password')
+                );
+
+                if($this->userModel->updateUserPassword($data)) {
+                    $this->session->setTempdata('success', 'Profile Updated');
+                } else {
+                    $this->session->setTempdata('error', 'Some Error Occurred');
+                }
+
+            } else {
+                $data = array(
+                    'id' => session()->get('logged_user'),
+                    'name' => $this->request->getVar('edit-name', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                    'mobile' => $this->request->getVar('edit-mobile', FILTER_SANITIZE_FULL_SPECIAL_CHARS)
+                );
+
+                if($this->userModel->updateUserDetails($data)) {
+                    $this->session->setTempdata('success', 'Profile Updated');
+                } else {
+                    $this->session->setTempdata('error', 'Some Error Occurred');
+                }
+            }
+        }
+        else {
+            $this->session->setTempdata('error', 'Some Error Occurred');
+        }
+        return redirect()->to("./home/profile");
+    }
 
     public function loginActivity()
     {
@@ -54,5 +101,13 @@ class Home extends BaseController
         );
 
         return view('login_activity', $data);
+    }
+
+    public function _remap($method, $param = null)
+    {
+        if (method_exists($this, $method)) {
+            return $this->$method($param);
+        }
+        throw PageNotFoundException::forPageNotFound();
     }
 }
