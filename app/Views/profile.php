@@ -191,13 +191,22 @@
                 <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form method="post" action="./editProfile">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Current Password:</label>
+                        <input type="password" class="form-control" name="curr-pass" id="curr-pass">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">New Password:</label>
+                        <input type="password" class="form-control" name="new-pass" id="new-pass">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save Changes" id="submit-btn" disabled>
+                </div>
+            </form>
         </div>
     </div>
 </div>
