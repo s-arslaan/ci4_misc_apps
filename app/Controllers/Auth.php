@@ -188,9 +188,10 @@ class Auth extends BaseController
             $userdata = $this->loginModel->searchEmail($email);
             if (!empty($userdata)) {
                 $curr_time = Time::now(app_timezone(), 'en_US');
-                if($this->loginModel->updatedAt($userdata->unique_id, $curr_time)) {
+                if($this->userModel->updatedAt($userdata->unique_id, $curr_time)) {
 
                     // email to be sent
+                    $link = base_url().'/auth/resetPassword/'.$userdata->unique_id;
 
                     $this->session->setTempdata('success', 'Reset link sent to email!');
                     return redirect()->to(current_url());
@@ -211,12 +212,63 @@ class Auth extends BaseController
         return view('forgot_view', $data);
     }
 
+    public function resetPassword($token = null)
+    {   
+        if(!empty($token)) {
+            $userdata = $this->userModel->getUserDetails($token);
+            if(!empty($userdata)) {
+                if($this->isLinkValid($userdata->updated_at)) {
+
+                    if ($this->request->getMethod() == 'post') {
+
+                        if($this->request->getVar('new-pass') !== null) {
+
+                            $data = array(
+                                'id' => session()->get('logged_user'),
+                                'new_pass' => $this->request->getVar('new-pass')
+                            );
+            
+                            if($this->userModel->resetPassword($data)) {
+                                $this->session->setTempdata('success', 'Password Changed');
+                                return redirect()->to(base_url());
+                            } else {
+                                $this->session->setTempdata('error', 'Unable to update Password!');
+                                return redirect()->to(base_url());
+                            }
+            
+                        }
+                    }
+                }
+                else {
+                    die('Sorry! Link Expired');
+                }
+
+            }
+            else {
+                die('Invalid Link!');
+            }
+        }
+        else {
+            die('Invalid Link!');
+        }
+
+        $data = array(
+            'title' => 'Shama | Reset Password',
+        );
+        return view('resetPassword_view', $data);
+
+    }
+
     public function isLinkValid($regTime)
     {
-        $currTime = now();
-        $diffTime = (int)$currTime - (int)strtotime($regTime);
-        if ($diffTime < 3600) {
-            // if time is less than 1 hour
+        $currTime = new Time('now');
+        $regTime =  Time::parse($regTime);
+        $diffTime = $regTime->difference($currTime);
+        // die(gettype($diffTime->minutes));
+        // die($diffTime->humanize());
+
+        if ($diffTime->minutes < 15) {
+            // if time is less than 15 mins
             return true;
         } else {
             return false;

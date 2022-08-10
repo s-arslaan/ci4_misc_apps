@@ -42,17 +42,4 @@ class Login extends Model
             return true;
         }
     }
-    
-    public function updatedAt($unique_id, $time)
-    {
-        $builder = $this->db->table($this->DBPrefix . 'users');
-        $builder->where('unique_id', $unique_id);
-        $builder->update(['updated_at' => $time]);
-
-        if ($this->db->affectedRows() == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

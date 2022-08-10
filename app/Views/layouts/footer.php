@@ -1,6 +1,6 @@
   </main>
   <?php
-  if(stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') )
+  if(stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') || stripos($title, 'reset') )
     echo "</div>";
   ?>
   <footer class="py-4 bg-light mt-auto">
