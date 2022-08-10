@@ -26,25 +26,18 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                    <h3 class="text-center font-weight-light my-4">Password Recovery</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST">
+                                    <div class="small mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+                                    <form method="post" action="<?= base_url() ?>/auth/forgotPassword">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" required />
-                                            <label for="inputEmail">Email address*</label>
+                                            <input class="form-control" id="inputEmail" type="email" name="email" placeholder="name@example.com" required/>
+                                            <label for="inputEmail">Email address</label>
                                         </div>
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password" required />
-                                            <label for="inputPassword">Password*</label>
-                                        </div>
-                                        <!-- <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div> -->
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="<?= base_url() ?>/auth/forgotPassword">Forgot Password?</a>
-                                            <button type="submit" class="btn btn-primary">Login</button>
+                                            <a class="small" href="<?= base_url() ?>/auth/login">Return to login</a>
+                                            <input class="btn btn-primary" type="submit" value="Reset Password" />
                                         </div>
                                     </form>
                                 </div>
@@ -55,5 +48,6 @@
                         </div>
                     </div>
                 </div>
+
 
 <?= $this->include("layouts/footer"); ?>

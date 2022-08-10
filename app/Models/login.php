@@ -35,11 +35,24 @@ class Login extends Model
     public function updateLogoutTime($la_id, $time)
     {
         $builder = $this->db->table($this->DBPrefix . 'login_activity');
-        $builder->select('*')->where('activity_id', $la_id);
+        $builder->where('activity_id', $la_id);
         $builder->update(['logout_time' => $time]);
 
         if ($this->db->affectedRows() == 1) {
             return true;
+        }
+    }
+    
+    public function updatedAt($unique_id, $time)
+    {
+        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder->where('unique_id', $unique_id);
+        $builder->update(['updated_at' => $time]);
+
+        if ($this->db->affectedRows() == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

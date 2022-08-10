@@ -117,8 +117,9 @@ class Auth extends BaseController
             if ($this->loginModel->searchEmail($email) == false) {
 
                 if ($this->userModel->addUser($userdata)) {
-                    // $subject = 'RSA GNU | Account Activation';
+                    // $subject = 'Account Activation';
                     // $body = "Hi $name,<br>Thanks for creating an account with us. Please activate your account.<a href=\"".base_url()."/auth/activate/$unique_id\" target='_blank'>Activate Now</a>";
+                    // email to be sent
 
                     $this->session->setTempdata('success', 'User Registered');
                     return redirect()->to(current_url());
@@ -179,9 +180,35 @@ class Auth extends BaseController
         return redirect()->to("./auth/login");
     }
 
-    public function resetPassword()
+    public function forgotPassword()
     {
-        
+        if ($this->request->getMethod() == 'post') {
+            
+            $email = $this->request->getVar('email', FILTER_SANITIZE_EMAIL);
+            $userdata = $this->loginModel->searchEmail($email);
+            if (!empty($userdata)) {
+                $curr_time = Time::now(app_timezone(), 'en_US');
+                if($this->loginModel->updatedAt($userdata->unique_id, $curr_time)) {
+
+                    // email to be sent
+
+                    $this->session->setTempdata('success', 'Reset link sent to email!');
+                    return redirect()->to(current_url());
+                }
+                else {
+                    $this->session->setTempdata('error', 'Sorry! Link Expired');
+                    return redirect()->to(current_url());
+                }
+            } else {
+                $this->session->setTempdata('error', 'User not found!');
+                return redirect()->to(current_url());
+            }
+        }
+
+        $data = array(
+            'title' => 'Shama | Forgot Password',
+        );
+        return view('forgot_view', $data);
     }
 
     public function isLinkValid($regTime)

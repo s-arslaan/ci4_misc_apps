@@ -1,6 +1,6 @@
   </main>
   <?php
-  if(stripos($title, 'register') || stripos($title, 'login'))
+  if(stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') )
     echo "</div>";
   ?>
   <footer class="py-4 bg-light mt-auto">
@@ -29,7 +29,7 @@
   <!-- <script src="<?php //base_url() ?>/public/assets/js/datatables-simple-demo.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script> -->
   <script>
-    toastr.options.positionClass = "toast-bottom-center";
+    toastr.options.positionClass = "toast-top-center";
     toastr.options.timeOut = 2000;
     toastr.options.extendedTimeOut = 1000;
     
