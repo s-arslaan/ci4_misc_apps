@@ -179,6 +179,11 @@ class Auth extends BaseController
         return redirect()->to("./auth/login");
     }
 
+    public function resetPassword()
+    {
+        
+    }
+
     public function isLinkValid($regTime)
     {
         $currTime = now();

@@ -9,7 +9,7 @@ use App\Models\HomeModel;
  * @property IncomingRequest $request 
  */
 
-class Home extends BaseController
+class Import extends BaseController
 {
     public $userModel;
     public function __construct()
@@ -26,11 +26,10 @@ class Home extends BaseController
         }
         
         $data = array(
-            'title' => 'Shama',
-            'users' => $this->userModel->getUsers(),
+            'title' => 'Shama'
         );
 
-        return view('index_view', $data);
+        return view('import_view', $data);
     }
 
     public function _remap($method, $param = null)
