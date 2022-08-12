@@ -60,7 +60,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="<?= base_url() ?>/import">
+                        <a class="nav-link" href="<?= base_url() ?>/attendance">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Attendance
                         </a>

@@ -4,18 +4,20 @@ namespace App\Controllers;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\HomeModel;
+use App\Models\Import;
 
 /**
  * @property IncomingRequest $request 
  */
 
-class Import extends BaseController
+class Attendance extends BaseController
 {
     public $userModel;
     public function __construct()
     {   
         $this->userModel = new Users();
         $this->homeModel = new HomeModel();
+        $this->importModel = new Import();
         $this->session = \Config\Services::session();
     }
 
@@ -26,10 +28,24 @@ class Import extends BaseController
         }
         
         $data = array(
-            'title' => 'Shama'
+            'title' => 'Shama | Attendance'
         );
 
-        return view('import_view', $data);
+        return view('attendance_view', $data);
+    }
+
+    public function import_attendance()
+    {
+        if ($this->request->getMethod() == 'post') {
+			if ($this->request->getFile('atnd_file') !== null) {
+
+				$file = $this->request->getFile('atnd_file');
+
+                $this->importModel->upload($file);
+			}
+		} else {
+            die('noooooooo');
+        }
     }
 
     public function _remap($method, $param = null)
