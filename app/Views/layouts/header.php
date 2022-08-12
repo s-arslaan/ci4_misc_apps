@@ -62,7 +62,7 @@
                         </a>
                         <a class="nav-link" href="<?= base_url() ?>/import">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Import Attendance
+                            Attendance
                         </a>
 <!--
                         <div class="sb-sidenav-menu-heading">Interface</div>

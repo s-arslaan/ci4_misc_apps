@@ -221,11 +221,11 @@ class Auth extends BaseController
 
                     if ($this->request->getMethod() == 'post') {
 
-                        if($this->request->getVar('new-pass') !== null) {
+                        if($this->request->getVar('password') !== null) {
 
                             $data = array(
-                                'id' => session()->get('logged_user'),
-                                'new_pass' => $this->request->getVar('new-pass')
+                                'id' => $token,
+                                'new_pass' => $this->request->getVar('password')
                             );
             
                             if($this->userModel->resetPassword($data)) {
@@ -259,7 +259,7 @@ class Auth extends BaseController
 
     }
 
-    public function isLinkValid($regTime)
+    protected function isLinkValid($regTime)
     {
         $currTime = new Time('now');
         $regTime =  Time::parse($regTime);
