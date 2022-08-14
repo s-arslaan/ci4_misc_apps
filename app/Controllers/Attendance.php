@@ -41,7 +41,13 @@ class Attendance extends BaseController
 
 				$file = $this->request->getFile('atnd_file');
 
-                $this->importModel->upload($file);
+                if($this->importModel->upload($file)){
+                    $this->session->setTempdata('success', 'Upload Successful!');
+                    return redirect()->to(base_url().'/attendance');
+                } else {
+                    $this->session->setTempdata('error', 'Something went wrong!');
+                    return redirect()->to(base_url().'/attendance');
+                }
 			}
 		} else {
             die('noooooooo');
