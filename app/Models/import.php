@@ -23,142 +23,18 @@ class Import extends Model
 
 		$i = $initial;
 
-		while ($i < $final_row) {
+		while ($i <= $final_row) {
 			array_push($rows,$i);
 			$i+=10;
 		}
 		return $rows;
 	}
 
-    function uploadLeads(&$reader, &$database)
+    function uploadLeads(&$reader)
 	{
 
 		$data = $reader->getSheet(0);
-
 		$final_row = $data->getHighestRow();
-		$isFirstRow = TRUE;
-		// $i=0;
-
-		// for ($i = 1; $i <= $final_row; $i += 1) {
-		// 	$lead = array();
-
-		// 	$this->error = array();
-
-		// 	$j = 2;
-
-		// 	if ($isFirstRow) {
-		// 		$isFirstRow = FALSE;
-		// 		continue;
-		// 	}
-		// 	$Lead_Owner = $this->getCell($data, $i, $j++);
-
-		// 	$Lead_Owner = htmlentities($Lead_Owner, ENT_QUOTES, $this->detect_encoding($Lead_Owner));
-
-		// 	$Company_name = $this->getCell($data, $i, $j++);
-		// 	$Company_name = htmlentities($Company_name, ENT_QUOTES, $this->detect_encoding($Company_name));
-
-		// 	$Company_Address_1	= $this->getCell($data, $i, $j++);
-		// 	$Company_Address_1	= htmlentities($Company_Address_1, ENT_QUOTES, $this->detect_encoding($Company_Address_1));
-
-		// 	$Company_Address_2 = $this->getCell($data, $i, $j++);
-		// 	$Company_Address_2	= htmlentities($Company_Address_2, ENT_QUOTES, $this->detect_encoding($Company_Address_2));
-
-		// 	$City	= $this->getCell($data, $i, $j++);
-		// 	$City	= htmlentities($City, ENT_QUOTES, $this->detect_encoding($City));
-
-		// 	$Postcode	= $this->getCell($data, $i, $j++);
-		// 	$Postcode	= htmlentities($Postcode, ENT_QUOTES, $this->detect_encoding($Postcode));
-
-		// 	$state	= $this->getCell($data, $i, $j++);
-		// 	$state	= htmlentities($state, ENT_QUOTES, $this->detect_encoding($state));
-
-		// 	$website	= $this->getCell($data, $i, $j++);
-		// 	$website	= htmlentities($website, ENT_QUOTES, $this->detect_encoding($website));
-
-		// 	$Contact_Person_Name	= $this->getCell($data, $i, $j++);
-		// 	$Contact_Person_Name	= htmlentities($Contact_Person_Name, ENT_QUOTES, $this->detect_encoding($Contact_Person_Name));
-
-		// 	$Designation	= $this->getCell($data, $i, $j++);
-		// 	$Designation	= htmlentities($Designation, ENT_QUOTES, $this->detect_encoding($Designation));
-
-		// 	$Mobile	= $this->getCell($data, $i, $j++);
-		// 	$Mobile	= htmlentities($Mobile, ENT_QUOTES, $this->detect_encoding($Mobile));
-
-		// 	$Phone	= $this->getCell($data, $i, $j++);
-		// 	$Phone	= htmlentities($Phone, ENT_QUOTES, $this->detect_encoding($Phone));
-
-		// 	$Email	= $this->getCell($data, $i, $j++);
-		// 	$Email	= htmlentities($Email, ENT_QUOTES, $this->detect_encoding($Email));
-
-		// 	$Estimated_Value	= $this->getCell($data, $i, $j++);
-		// 	$Estimated_Value	= htmlentities($Estimated_Value, ENT_QUOTES, $this->detect_encoding($Estimated_Value));
-
-		// 	$Lead_Type	= $this->getCell($data, $i, $j++);
-		// 	$Lead_Type	= htmlentities($Lead_Type, ENT_QUOTES, $this->detect_encoding($Lead_Type));
-
-		// 	$Lead_Status	= $this->getCell($data, $i, $j++);
-		// 	$Lead_Status	= htmlentities($Lead_Status, ENT_QUOTES, $this->detect_encoding($Lead_Status));
-
-		// 	$Lead_Stage	= $this->getCell($data, $i, $j++);
-		// 	$Lead_Stage	= htmlentities($Lead_Stage, ENT_QUOTES, $this->detect_encoding($Lead_Stage));
-
-		// 	$Lead_Creator	= $this->getCell($data, $i, $j++);
-		// 	$Lead_Creator	= htmlentities($Lead_Creator, ENT_QUOTES, $this->detect_encoding($Lead_Creator));
-
-		// 	$Follow_up_date	= $this->getCell($data, $i, $j++);
-		// 	$Follow_up_date	= htmlentities($Follow_up_date, ENT_QUOTES, $this->detect_encoding($Follow_up_date));
-
-		// 	$Expected_closing_date	= $this->getCell($data, $i, $j++);
-		// 	$Expected_closing_date	= htmlentities($Expected_closing_date, ENT_QUOTES, $this->detect_encoding($Expected_closing_date));
-
-		// 	$Actual_closed_date	= $this->getCell($data, $i, $j++);
-		// 	$Actual_closed_date	= htmlentities($Actual_closed_date, ENT_QUOTES, $this->detect_encoding($Actual_closed_date));
-
-		// 	$Date_Added	= $this->getCell($data, $i, $j++);
-		// 	$Date_Added	= htmlentities($Date_Added, ENT_QUOTES, $this->detect_encoding($Date_Added));
-
-		// 	$Date_Modified	= $this->getCell($data, $i, $j++);
-		// 	$Date_Modified	= htmlentities($Date_Modified, ENT_QUOTES, $this->detect_encoding($Date_Modified));
-
-		// 	$Status_Comment	= $this->getCell($data, $i, $j++);
-		// 	$Status_Comment	= htmlentities($Status_Comment, ENT_QUOTES, $this->detect_encoding($Status_Comment));
-
-		// 	$Lead_History = $this->getCell($data, $i, $j++);
-		// 	// $Lead_History= htmlentities( $product_id, ENT_QUOTES, $this->detect_encoding($Lead_History) );
-
-		// 	$Lead_History = htmlentities($Lead_History, ENT_QUOTES, $this->detect_encoding($Lead_History));
-
-		// 	$lead[] = array(
-		// 		'lead_id'	=> '',
-		// 		'lead_owner' => $Lead_Owner,
-		// 		'company_name' => $Company_name,
-		// 		'company_address_1' => $Company_Address_1,
-		// 		'company_address_2' => $Company_Address_2,
-		// 		'city' => $City,
-		// 		'postcode' => $Postcode,
-		// 		'state' => $state,
-		// 		'website' => $website,
-		// 		'contact_person_name' => $Contact_Person_Name,
-		// 		'designation' => $Designation,
-		// 		'mobile' => $Mobile,
-		// 		'phone' => $Phone,
-		// 		'email' => $Email,
-		// 		'estimated_value' => $Estimated_Value,
-		// 		'lead_type' => $Lead_Type,
-		// 		'lead_status' => $Lead_Status,
-		// 		'lead_stage' => $Lead_Stage,
-		// 		'lead_creator' => $Lead_Creator,
-		// 		'follow_up_date' => $Follow_up_date,
-		// 		'expected_closing_date' => $Expected_closing_date,
-		// 		'actual_closed_date' => $Actual_closed_date,
-		// 		'date_added' => $Date_Added,
-		// 		'date_modified' => $Date_Modified,
-		// 		'status_comment' => $Status_Comment,
-		// 		'lead_history' => $Lead_History
-		// 	);
-		// 	$leads[] = $lead;
-		// 	// $this->model_sale_lead->addLead($lead);
-		// }
 		
 		// get row indexes
 		$month_rows = $this->getRowsList($final_row, 1);
@@ -166,8 +42,6 @@ class Import extends Model
 		$in_rows = $this->getRowsList($final_row, 5);
 		$out_rows = $this->getRowsList($final_row, 6);
 		$status_rows = $this->getRowsList($final_row, 10);
-		
-		$month_30 = ['sep','apr','jun','nov'];
 
 		$leads = array();
 		$cnt = 0;
@@ -211,57 +85,74 @@ class Import extends Model
 		}
 
 		$ok = $this->storeRowsDB($leads);
-
+		
 		if(!$ok) {
 			return false;
 		}
 		return true;
-        // echo '<pre>';print_r($leads);exit;
+
+		// echo '<pre>';print_r($leads);exit;
         // echo '<pre>';print_r($month_rows);print_r($cnt_rows);print_r($in_rows);print_r($out_rows);print_r($status_rows);exit;
 		// return $this->storeLeadsIntoDatabase($database, $leads);
 	}
 
 	protected function storeRowsDB($data)
 	{	
-		$builder = $this->db->table($this->DBPrefix . 'physiotherapy_attendance');
 		$batch = array();
+		$each_row = array();
 		$count = 0;
 
 		foreach ($data as $person) {
-			$each_row = [];
 
-			$each_row['emp_code'] = htmlentities($person['emp_code']);
-			$each_row['emp_name'] = htmlentities(strtolower($person['emp_name']));
-			$each_row['entry_type'] = 0;
-			$each_row['month'] = htmlentities(strtolower($person['month']));
+			$arr_count=0;
+			// while($arr_count < 3) {
+			for ($arr_count=0; $arr_count < 3; $arr_count++) { 
 
-			foreach ($person['in_timings'] as $key => $value) {
-				$t = 'date_'.($key+1);
-				$each_row[$t] = htmlentities($value);
+				$each_row = [];
+				$each_row['emp_code'] = htmlentities($person['emp_code']);
+				$each_row['emp_name'] = htmlentities(strtolower($person['emp_name']));
+				$each_row['entry_type'] = $arr_count;
+				$each_row['month'] = htmlentities(strtolower($person['month']));
+
+				// setting the timing array
+				$arr = [];
+				if($arr_count === 0)
+					$arr = $person['in_timings'];
+				elseif($arr_count === 1)
+					$arr = $person['out_timings'];
+				elseif($arr_count === 2)
+					$arr = $person['status'];
+
+				if(is_array($arr)) {
+					foreach ($arr as $key => $value) {
+						$t = 'date_'.($key+1);
+						$each_row[$t] = htmlentities($value);
+					}
+				}
+
+				$each_row['present_days'] = htmlentities($person['present_days']);
+				$each_row['absent_days'] = htmlentities($person['absent_days']);
+
+				$batch[] = $each_row;
+				$count++;
+				// $builder->insert($each_row);
 			}
-
-			$each_row['present_days'] = htmlentities($person['present_days']);
-			$each_row['absent_days'] = htmlentities($person['absent_days']);
-
-			$batch[] = $each_row;
-			$count++;
-			// $builder->insert($each_row);
 		}
+		// echo '<pre>';print_r($batch);echo count($batch);exit;
+
+		$builder = $this->db->table($this->DBPrefix . 'physiotherapy_attendance');
 		$builder->insertBatch($batch);
 		if ($this->db->affectedRows() == $count) {
-            return True;
-        } else {
-            return False;
-        }
-		// return true;
+			return True;
+		} else {
+			return False;
+		}
 	}
 
     public function upload($filename)
 	{
 
 		try {
-			$database = &$this->db;
-
 
 			// parse uploaded spreadsheet file
 			$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($filename);
@@ -269,7 +160,7 @@ class Import extends Model
 			$objReader->setReadDataOnly(true);
 			$reader = $objReader->load($filename);
 
-			$ok = $this->uploadLeads($reader, $database);
+			$ok = $this->uploadLeads($reader);
 
 			if (!$ok) {
 				return FALSE;
@@ -281,9 +172,10 @@ class Import extends Model
 			$errline = $e->getLine();
 			$errfile = $e->getFile();
 			$errno = $e->getCode();
-			$this->session->data['export_error'] = array('errstr' => $errstr, 'errno' => $errno, 'errfile' => $errfile, 'errline' => $errline);
-            log_message('error','PHP ' . get_class($e) . ':  ' . $errstr . ' in ' . $errfile . ' on line ' . $errline);
+			// $this->session->set('import_error', array('errstr' => $errstr, 'errno' => $errno, 'errfile' => $errfile, 'errline' => $errline));
+            // log_message('error','PHP ' . get_class($e) . ':  ' . $errstr . ' in ' . $errfile . ' on line ' . $errline);
 			return FALSE;
+			// die($e);
 		}
 	}
 }
