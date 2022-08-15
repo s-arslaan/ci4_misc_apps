@@ -3,13 +3,11 @@
 <?= $this->section("content") ?>
 <div class="container-fluid px-4">
     <form action="./attendance/import_attendance" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="formFile" class="form-label">File Input</label>
+        <div class="my-3">
+            <label for="formFile" class="form-label">Upload Attendance file (.xls/.xlsx)</label>
             <input class="form-control" type="file" name="atnd_file" id="formFile">
         </div>
-        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-            <button type="submit" class="btn btn-primary">Upload</button>
-        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
 
