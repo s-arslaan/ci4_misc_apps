@@ -147,12 +147,6 @@
         </div>
     </div>
 
-
-    <?php
-
-    // print_r($_SESSION);
-    print_r($user);
-    ?>
 </div>
 <!-- Edit Profile Modal -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
