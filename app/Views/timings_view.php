@@ -55,8 +55,9 @@
     <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/scroller.bootstrap5.min.js"></script>
     <script>
         const showTable = () => {
-            let sh = $('.active').attr('id');
+            let sh = $('#pills-tab > .nav-item > .active').attr('id');
             let table = '';
+            let url = '';
             
             if(sh === 'pill-in-tab'){
                 table = '#in_table';
@@ -66,6 +67,7 @@
                 table = '#out_table'
                 url = './getAttendance/1';
             }
+            console.log(table+' '+url+' '+sh);
 
             $(table).DataTable({
                 retrieve: true,

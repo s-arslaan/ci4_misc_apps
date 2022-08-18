@@ -1,6 +1,6 @@
   </main>
   <?php
-  if(stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') || stripos($title, 'reset') )
+  if (stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') || stripos($title, 'reset'))
     echo "</div>";
   ?>
   <footer class="py-4 bg-light mt-auto">
@@ -27,21 +27,32 @@
   <script src="assets/demo/chart-bar-demo.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script> -->
   <script>
-    toastr.options.positionClass = "toast-top-center";
-    toastr.options.timeOut = 2000;
-    toastr.options.extendedTimeOut = 1000;
-    
-    <?php if (session()->getTempdata('success')) : ?>
-      toastr.success(<?= "'" . session()->getTempdata('success') . "'"; ?>);
-      <?php session()->removeTempdata('success'); ?>
-    <?php endif; ?>
+    $(document).ready(function() {
 
-    <?php if (session()->getTempdata('error')) : ?>
-      toastr.error(<?= "'" . session()->getTempdata('error') . "'"; ?>);
-      <?php session()->removeTempdata('error'); ?>
-    <?php endif; ?>
+      toastr.options.positionClass = "toast-top-center";
+      toastr.options.timeOut = 2000;
+      toastr.options.extendedTimeOut = 1000;
 
+      <?php if (session()->getTempdata('success')) : ?>
+        toastr.success(<?= "'" . session()->getTempdata('success') . "'"; ?>);
+        <?php session()->removeTempdata('success'); ?>
+      <?php endif; ?>
+
+      <?php if (session()->getTempdata('error')) : ?>
+        toastr.error(<?= "'" . session()->getTempdata('error') . "'"; ?>);
+        <?php session()->removeTempdata('error'); ?>
+      <?php endif; ?>
+
+      let url = '<?= current_url() ?>';
+      if (url.match(/\/dashboard$/)) {
+        $(".nav .nav-link:eq(0)").addClass('active');
+      } else if (url.match(/\/attendance$/)) {
+        $(".nav .nav-link:eq(1)").addClass('active');
+      } else if (url.match(/\/timings$/)) {
+        $(".nav .nav-link:eq(2)").addClass('active');
+      }
+    });
   </script>
-</body>
+  </body>
 
-</html>
+  </html>
