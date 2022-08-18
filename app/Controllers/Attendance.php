@@ -30,13 +30,9 @@ class Attendance extends BaseController
             return redirect()->to("./auth/login");
         }
         
-        $data = array(
-            'title' => 'Shama | Attendance'
-        );
-
-        return view('attendance_view', $data);
+        return view('attendance_view', ['title' => 'Shama | Attendance']);
     }
-
+    
     public function getAttendance($type)
     {
         if(is_numeric($type)) {
@@ -48,6 +44,15 @@ class Attendance extends BaseController
         // echo '<pre>';print_r($attendance);exit;
         header('Content-Type: application/json');
         return json_encode( $attendance );
+    }
+
+    public function timings()
+    {
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        return view('timings_view', ['title' => 'Shama | Timings']);
     }
 
     public function import_attendance()
