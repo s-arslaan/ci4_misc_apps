@@ -7,13 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/favicon.ico">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
     <title><?= $title; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="<?= base_url() ?>/public/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?= base_url() ?>/public/assets/css/styles.css" rel="stylesheet" />
     <link href="<?= base_url() ?>/public/assets/css/toastr.min.css" rel="stylesheet" />
     <!-- fa -->
     <script src="<?= base_url() ?>/public/assets/js/all.min.js"></script>
+    <script src="<?= base_url() ?>/public/assets/js/jquery.min.js"></script>
     <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script> -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" /> -->
 </head>
@@ -26,15 +28,6 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-auto" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
-        <!-- Navbar Search-->
-        <!--
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-        -->
         <!-- Navbar-->
         <ul class="navbar-nav d-flex ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">

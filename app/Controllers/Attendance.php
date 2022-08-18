@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+
+use App\Models\AttendanceModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\HomeModel;
@@ -18,6 +20,7 @@ class Attendance extends BaseController
         $this->userModel = new Users();
         $this->homeModel = new HomeModel();
         $this->importModel = new Import();
+        $this->attendanceModel = new AttendanceModel();
         $this->session = \Config\Services::session();
     }
 
@@ -32,6 +35,19 @@ class Attendance extends BaseController
         );
 
         return view('attendance_view', $data);
+    }
+
+    public function getAttendance($type)
+    {
+        if(is_numeric($type)) {
+            $attendance = $this->attendanceModel->fetchAttendance($type);
+        } else {
+            $attendance = [];
+        }
+
+        // echo '<pre>';print_r($attendance);exit;
+        header('Content-Type: application/json');
+        return json_encode( $attendance );
     }
 
     public function import_attendance()
