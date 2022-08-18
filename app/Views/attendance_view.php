@@ -22,7 +22,6 @@
                         <th>ID</th>
                         <th>Code</th>
                         <th>Name</th>
-                        <!-- <th>entry_type</th> -->
                         <th>month</th>
                         <th>1</th>
                         <th>2</th>
@@ -57,7 +56,6 @@
                         <th>31</th>
                         <th>present_days</th>
                         <th>absent_days</th>
-                        <!-- <th>date_added</th> -->
                     </tr>
                 </thead>
             </table>
@@ -97,14 +95,14 @@
         $(document).ready(function () {
             $('#attendance_table').DataTable({
                 ajax: {
-                    url: './attendance/getAttendance/0',
+                    url: './attendance/getAttendance/2',
                     dataSrc: ''
                 },
                 columns: [
-                    {data:"attendance_id"},
-                    {data:"emp_code"},
-                    {data:"emp_name"},
-                    {data:"month"},
+                    {responsivePriority: 1, data:"attendance_id"},
+                    {responsivePriority: 1, data:"emp_code"},
+                    {responsivePriority: 1, data:"emp_name"},
+                    {responsivePriority: 1, data:"month"},
                     {data:"date_1"},
                     {data:"date_2"},
                     {data:"date_3"},
@@ -136,8 +134,8 @@
                     {data:"date_29"},
                     {data:"date_30"},
                     {data:"date_31"},
-                    {data:"present_days"},
-                    {data:"absent_days"},
+                    {responsivePriority: 1, data:"present_days"},
+                    {responsivePriority: 1, data:"absent_days"},
                 ]
             });
         });
