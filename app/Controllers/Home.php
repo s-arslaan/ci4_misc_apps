@@ -22,17 +22,23 @@ class Home extends BaseController
     public function index()
     {   
         if(!session()->has('logged_user')) {
-            return redirect()->to("./auth/login");
+            return redirect()->to(base_url()."/auth/login");
+        } else {
+            return redirect()->to(base_url()."/home/dashboard");
         }
         
+    }
+    
+    public function dashboard()
+    {
         $data = array(
-            'title' => 'Shama',
+            'title' => 'Shama | Dashboard',
             'users' => $this->userModel->getUsers(),
         );
 
-        return view('index_view', $data);
+        return view('dashboard_view', $data);
     }
-    
+
     public function profile()
     {   
         if(!session()->has('logged_user')) {
