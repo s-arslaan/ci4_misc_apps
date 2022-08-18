@@ -13,10 +13,10 @@
                 <h3>Timings</h3>
                 <ul class="nav nav-pills ms-auto" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pill-in-tab" data-bs-toggle="pill" data-bs-target="#pill-in" type="button" role="tab" aria-controls="pill-in" aria-selected="true" onclick="c();">Home</button>
+                        <button class="nav-link active" id="pill-in-tab" data-bs-toggle="pill" data-bs-target="#pill-in" type="button" role="tab" aria-controls="pill-in" aria-selected="true" onclick="showTable();">IN Timings</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pill-out-tab" data-bs-toggle="pill" data-bs-target="#pill-out" type="button" role="tab" aria-controls="pill-out" aria-selected="false" onclick="c();">Profile</button>
+                        <button class="nav-link" id="pill-out-tab" data-bs-toggle="pill" data-bs-target="#pill-out" type="button" role="tab" aria-controls="pill-out" aria-selected="false" onclick="showTable();">OUT Timings</button>
                     </li>
                 </ul>
             </div>
@@ -54,7 +54,7 @@
     <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/responsive.bootstrap5.min.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/scroller.bootstrap5.min.js"></script>
     <script>
-        const c = () => {
+        const showTable = () => {
             let sh = $('.active').attr('id');
             let table = '';
             
@@ -114,7 +114,7 @@
                 ]
             });
         }
-        c();
+        showTable();
     </script>
 </div>
 
