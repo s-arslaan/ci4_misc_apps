@@ -67,7 +67,7 @@
                 table = '#out_table'
                 url = './getAttendance/1';
             }
-            console.log(table+' '+url+' '+sh);
+            // console.log(table+' '+url+' '+sh);
 
             $(table).DataTable({
                 retrieve: true,
