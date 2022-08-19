@@ -11,7 +11,7 @@
         <div class="col-12">
             <!-- <div class="d-flex justify-content-center mb-2"> -->
             <div class="d-flex align-items-center">
-                <h3>Attendance</h3>
+                <h2>Attendance</h2>
                 <button type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#uploadFileModal">Upload Attendance</button>
             </div>
         </div>

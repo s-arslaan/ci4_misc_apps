@@ -10,7 +10,7 @@
     <div class="row my-4">
         <div class="col-12">
             <div class="d-flex align-items-center">
-                <h3>Timings</h3>
+                <h2>Timings</h2>
                 <ul class="nav nav-pills ms-auto" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="pill-in-tab" data-bs-toggle="pill" data-bs-target="#pill-in" type="button" role="tab" aria-controls="pill-in" aria-selected="true" onclick="showTable();">IN Timings</button>
