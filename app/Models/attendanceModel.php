@@ -14,4 +14,18 @@ class AttendanceModel extends Model
         $query = $builder->select('*, ROW_NUMBER() OVER (ORDER BY attendance_id) AS id')->where('entry_type', $type)->get();
         return $query->getResultArray();
     }
+    
+    public function getUniqueNames()
+    {
+        $builder = $this->db->table($this->DBPrefix . 'physiotherapy_attendance');
+        $query = $builder->select('emp_code, emp_name')->distinct()->get();
+        return $query->getResultArray();
+    }
+    
+    public function getUniqueMonths()
+    {
+        $builder = $this->db->table($this->DBPrefix . 'physiotherapy_attendance');
+        $query = $builder->select('month')->distinct()->get();
+        return $query->getResultArray();
+    }
 }

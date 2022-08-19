@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers;
+
 use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Models\AttendanceModel;
 use App\Models\Users;
 use App\Models\HomeModel;
 
@@ -16,6 +18,7 @@ class Home extends BaseController
     {   
         $this->userModel = new Users();
         $this->homeModel = new HomeModel();
+        $this->attendanceModel = new AttendanceModel();
         $this->session = \Config\Services::session();
     }
 
@@ -31,11 +34,18 @@ class Home extends BaseController
     
     public function dashboard()
     {
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
         $data = array(
             'title' => 'Shama | Dashboard',
-            'users' => $this->userModel->getUsers(),
+            'names' => $this->attendanceModel->getUniqueNames(),
+            'count_names' => count($this->attendanceModel->getUniqueNames()),
+            'months' => $this->attendanceModel->getUniqueMonths(),
+            'count_months' => count($this->attendanceModel->getUniqueMonths()),
         );
-
+        // echo '<pre>';print_r($data);exit;
         return view('dashboard_view', $data);
     }
 
