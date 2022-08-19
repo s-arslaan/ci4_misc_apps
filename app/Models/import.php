@@ -30,7 +30,7 @@ class Import extends Model
 		return $rows;
 	}
 
-    protected function isValidFile(&$reader)
+    protected function isValidFileFormat(&$reader)
 	{
 		$data = $reader->getSheet(0);
 		$final_row = $data->getHighestRow();
@@ -38,12 +38,28 @@ class Import extends Model
 		if($final_row%10 != 0)
 			return false;
 
-		for ($i = 1; $i <= $final_row; $i += 10) {
+		// get row indexes
+		$month_rows = $this->getRowsList($final_row, 1);
+		$cnt_rows = $this->getRowsList($final_row, 2);
 
-			if($this->getCell($data, $i, 3) !== 'physiotherapy')
-				return false;
-			if($this->getCell($data, $i, 16) !== 'Shama institute of medical sciences')
-				return false;
+		for ($i = 1; $i <= $final_row; $i += 1) {
+
+			if(in_array($i,$month_rows)) {
+				if($this->getCell($data, $i, 3) !== 'physiotherapy')
+					return false;
+				if($this->getCell($data, $i, 16) !== 'Shama institute of medical sciences')
+					return false;
+				$month = $this->getCell($data, $i, 30);
+			}
+			if(in_array($i,$cnt_rows)) {
+				$code = $this->getCell($data, $i, 3);
+				$name = $this->getCell($data, $i, 9);
+
+				if(!$this->isValidEntry($code, $name, $month)){
+					// echo '<pre>'.$code.' '.$name.' '.$month;exit;
+					return false;
+				}
+			}
 
 		}
 		return true;
@@ -180,7 +196,7 @@ class Import extends Model
 			$reader = $objReader->load($filename);
 
 			if($checkValid) {
-				return $this->isValidFile($reader);
+				return $this->isValidFileFormat($reader);
 			}
 			else {
 				$ok = $this->uploadLeads($reader);
@@ -202,5 +218,23 @@ class Import extends Model
 			return FALSE;
 			// die($e);
 		}
+	}
+
+	protected function isValidEntry($code, $name, $month)
+	{
+		$where_arr = ['emp_code' => $code, 'emp_name' => $name, 'month' => $month];
+
+		$builder = $this->db->table($this->DBPrefix . 'physiotherapy_attendance');
+		$builder->select('emp_code, emp_name, month')->where($where_arr);
+        $res = $builder->get();
+
+		if (count($res->getResultArray()) == 3) {
+		// echo '<pre>';print_r($res->getResultArray());exit;
+
+            return false;
+        } else {
+            return true;
+        }
+
 	}
 }
