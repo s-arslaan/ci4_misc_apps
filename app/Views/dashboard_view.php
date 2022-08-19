@@ -12,7 +12,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="d-flex card-body display-5">
                     Total People
-                    <span class="badge bg-secondary ms-auto">23</span>
+                    <span class="badge bg-secondary ms-auto"><?= $count_names ?></span>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" href="<?= base_url() ?>./attendance">View Details</a>
@@ -24,10 +24,10 @@
             <div class="card bg-warning text-white mb-4">
                 <div class="d-flex card-body display-5">
                     Total Months
-                    <span class="badge bg-secondary ms-auto">New</span>
+                    <span class="badge bg-secondary ms-auto"><?= $count_months ?></span>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="<?= base_url() ?>./attendance">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -40,7 +40,11 @@
                     <i class="fas fa-chart-area me-1"></i>
                     Current Attendance Names
                 </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                <div class="card-body">
+                    <?php foreach ($names as $name) : ?>
+                        <span class="badge text-bg-light border border-secondary fs-6"><?= $name['emp_name'] ?></span>
+                    <?php endforeach ?>
+                </div>
             </div>
         </div>
         <div class="col-xl-6">
@@ -49,7 +53,11 @@
                     <i class="fas fa-chart-area me-1"></i>
                     Current Attendance Months
                 </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                <div class="card-body">
+                    <?php foreach ($months as $month) : ?>
+                        <span class="badge text-bg-light border border-secondary fs-6"><?= $month['month'] ?></span>
+                    <?php endforeach ?>
+                </div>
             </div>
         </div>
     </div>
