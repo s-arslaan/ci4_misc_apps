@@ -30,6 +30,25 @@ class Import extends Model
 		return $rows;
 	}
 
+    protected function isValidFile(&$reader)
+	{
+		$data = $reader->getSheet(0);
+		$final_row = $data->getHighestRow();
+
+		if($final_row%10 != 0)
+			return false;
+
+		for ($i = 1; $i <= $final_row; $i += 10) {
+
+			if($this->getCell($data, $i, 3) !== 'physiotherapy')
+				return false;
+			if($this->getCell($data, $i, 16) !== 'Shama institute of medical sciences')
+				return false;
+
+		}
+		return true;
+	}
+
     function uploadLeads(&$reader)
 	{
 
@@ -149,7 +168,7 @@ class Import extends Model
 		}
 	}
 
-    public function upload($filename)
+    public function upload($filename, $checkValid = false)
 	{
 
 		try {
@@ -160,12 +179,18 @@ class Import extends Model
 			$objReader->setReadDataOnly(true);
 			$reader = $objReader->load($filename);
 
-			$ok = $this->uploadLeads($reader);
-
-			if (!$ok) {
-				return FALSE;
+			if($checkValid) {
+				return $this->isValidFile($reader);
 			}
-			return $ok;
+			else {
+				$ok = $this->uploadLeads($reader);
+	
+				if (!$ok) {
+					return FALSE;
+				}
+				return $ok;
+			}
+
 
 		} catch (\Exception $e) {
 			$errstr = $e->getMessage();

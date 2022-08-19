@@ -70,17 +70,23 @@ class Attendance extends BaseController
                 $size = $file->getSize();
 
                 if($type == 'application/vnd.ms-excel' || $type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                    if($size <= 5000000) {
-                        if($this->importModel->upload($file)){
-                            $this->session->setTempdata('success', 'Upload Successful!');
-                            return redirect()->to(base_url().'/attendance');
+                    if($this->importModel->upload($file, true)) {
+                        if($size <= 5000000) {
+                            // size less than 5 MB
+                            if($this->importModel->upload($file)){
+                                $this->session->setTempdata('success', 'Upload Successful!');
+                                return redirect()->to(base_url().'/attendance');
+                            } else {
+                                $this->session->setTempdata('error', 'Something went wrong!');
+                                return redirect()->to(base_url().'/attendance');
+                            }
+    
                         } else {
-                            $this->session->setTempdata('error', 'Something went wrong!');
+                            $this->session->setTempdata('error', 'File size should be less than 5 MB!');
                             return redirect()->to(base_url().'/attendance');
                         }
-
                     } else {
-                        $this->session->setTempdata('error', 'File size should be less than 5 MB!');
+                        $this->session->setTempdata('error', 'Invalid File Format!');
                         return redirect()->to(base_url().'/attendance');
                     }
                 } else {
