@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-12 mt-3">
-            <table id="attendance_table" class="table table-striped dt-responsive nowrap">
+            <table id="attendance_table" class="table table-striped table-hover table-bordered dt-responsive nowrap">
                 <thead>
                     <tr>
                         <th>#</th>
