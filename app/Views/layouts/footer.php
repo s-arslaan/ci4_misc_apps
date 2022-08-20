@@ -1,8 +1,10 @@
   </main>
   <?php
-  if (stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') || stripos($title, 'reset'))
+  if (stripos($title, 'register') || stripos($title, 'login') || stripos($title, 'forgot') || stripos($title, 'reset')) {
     echo "</div>";
-  ?>
+?>
+    <script src="<?= base_url() ?>/public/assets/js/jquery.min.js"></script>
+  <?php } ?>
   <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid px-4">
       <div class="d-flex align-items-center justify-content-between small">
