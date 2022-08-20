@@ -15,7 +15,7 @@ use DateTime;
 class Auth extends BaseController
 {
     public $userModel;
-    public $rsaFunction;
+    public $loginModel;
     public $session;
     public function __construct()
     {

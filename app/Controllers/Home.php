@@ -14,6 +14,9 @@ use App\Models\HomeModel;
 class Home extends BaseController
 {
     public $userModel;
+    public $homeModel;
+    public $attendanceModel;
+    public $session;
     public function __construct()
     {   
         // $this->userModel = new Users();

@@ -15,6 +15,10 @@ use App\Models\Import;
 class Attendance extends BaseController
 {
     public $userModel;
+    public $homeModel;
+    public $importModel;
+    public $attendanceModel;
+    public $session;
     public function __construct()
     {   
         $this->userModel = model(Users::class);
