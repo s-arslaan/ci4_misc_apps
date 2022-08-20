@@ -19,8 +19,8 @@ class Auth extends BaseController
     public $session;
     public function __construct()
     {
-        $this->userModel = new Users();
-        $this->loginModel = new Login();
+        $this->userModel = model(Users::class);
+        $this->loginModel = model(Login::class);
         $this->session = \Config\Services::session();
         helper('date');
     }

@@ -17,10 +17,10 @@ class Attendance extends BaseController
     public $userModel;
     public function __construct()
     {   
-        $this->userModel = new Users();
-        $this->homeModel = new HomeModel();
-        $this->importModel = new Import();
-        $this->attendanceModel = new AttendanceModel();
+        $this->userModel = model(Users::class);
+        $this->homeModel = model(HomeModel::class);
+        $this->importModel = model(Import::class);
+        $this->attendanceModel = model(AttendanceModel::class);
         $this->session = \Config\Services::session();
     }
 

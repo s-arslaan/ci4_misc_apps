@@ -16,9 +16,12 @@ class Home extends BaseController
     public $userModel;
     public function __construct()
     {   
-        $this->userModel = new Users();
-        $this->homeModel = new HomeModel();
-        $this->attendanceModel = new AttendanceModel();
+        // $this->userModel = new Users();
+        // $this->homeModel = new HomeModel();
+        // $this->attendanceModel = new AttendanceModel();
+        $this->userModel = model(Users::class);
+        $this->homeModel = model(HomeModel::class);
+        $this->attendanceModel = model(AttendanceModel::class);
         $this->session = \Config\Services::session();
     }
 
