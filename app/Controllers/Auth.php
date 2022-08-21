@@ -27,7 +27,6 @@ class Auth extends BaseController
 
     public function showUsers()
     {
-
         $users = $this->userModel->getUsers();
         $myTime = Time::now(app_timezone(), 'en_US');
 
