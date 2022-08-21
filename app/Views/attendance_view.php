@@ -2,9 +2,9 @@
 
 <?= $this->section("content") ?>
 <div class="container-fluid px-4">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/public/assets/css/dataTables.bootstrap5.min.css"/>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/public/assets/css/responsive.bootstrap5.min.css"/>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/public/assets/css/scroller.bootstrap5.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/dataTables.bootstrap5.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/responsive.bootstrap5.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/scroller.bootstrap5.min.css"/>
  
     <!-- Attendance Table -->
     <div class="row my-4">
@@ -86,11 +86,11 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/responsive.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>/public/assets/js/scroller.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/assets/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/assets/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/assets/js/responsive.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>/assets/js/scroller.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#attendance_table').DataTable({
