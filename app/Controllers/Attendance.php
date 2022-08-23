@@ -7,6 +7,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\HomeModel;
 use App\Models\Import;
+use ReflectionMethod;
 
 /**
  * @property IncomingRequest $request 
@@ -104,15 +105,48 @@ class Attendance extends BaseController
         }
     }
 
-    public function _remap($method, $params = array())
+    // public function _remap($method, $params = array())
+    // {
+    //     if (method_exists($this, $method))
+    //     {
+    //         return call_user_func_array(array($this, $method), $params);
+    //     }
+    //     else {
+    //         throw PageNotFoundException::forPageNotFound();
+    //     }
+        
+    // }
+    
+    // remap function for checking if method exists with accepted parameter
+    public function _remap($method, $param0 = null, $param1 = null, $param2 = null)
     {
         if (method_exists($this, $method))
         {
-            return call_user_func_array(array($this, $method), $params);
+            if(isset($param2))
+                $temp = $param0.','.$param1.','.$param2;
+            else if(isset($param1))
+                $temp = $param0.','.$param1;
+            else if(isset($param0))
+                $temp = $param0;
+            else
+                $temp = '';
+
+            $params = [];
+            if($temp !== '')
+                $params = explode(',',$temp);
+            // echo '<pre>';print_r($method);echo '<br>';print_r($params);exit;
+
+            $existing = new ReflectionMethod($this,$method);
+            $existing_params = $existing->getParameters();
+
+            if(count($existing_params) == count($params))
+                return call_user_func_array(array($this, $method), $params);
+            else
+                throw PageNotFoundException::forPageNotFound();
         }
         else {
             throw PageNotFoundException::forPageNotFound();
         }
-        
     }
+    
 }
