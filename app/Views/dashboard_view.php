@@ -15,7 +15,7 @@
                     <span class="badge bg-secondary ms-auto"><?= $count_names ?></span>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="<?= base_url() ?>./attendance">View Details</a>
+                    <a class="small text-white stretched-link" href="<?= base_url() ?>/attendance">View Details</a>
                     <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAW0lEQVRIie2VMQ6AIBAECS21RF9qyxul4DljIZ3Q3RoTbh8ws9vchbBEgKSEF6ABhwKegMqTCmSFZAOuLpEtcYlL5pJo6bQjvdvvDnf4FP7JuT7Nmw8kupf5+9z81yZot2e+VwAAAABJRU5ErkJggg==">
                 </div>
@@ -28,7 +28,7 @@
                     <span class="badge bg-secondary ms-auto"><?= $count_months ?></span>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="<?= base_url() ?>./attendance">View Details</a>
+                    <a class="small text-white stretched-link" href="<?= base_url() ?>/attendance">View Details</a>
                     <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAW0lEQVRIie2VMQ6AIBAECS21RF9qyxul4DljIZ3Q3RoTbh8ws9vchbBEgKSEF6ABhwKegMqTCmSFZAOuLpEtcYlL5pJo6bQjvdvvDnf4FP7JuT7Nmw8kupf5+9z81yZot2e+VwAAAABJRU5ErkJggg==">
                 </div>
