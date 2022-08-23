@@ -42,7 +42,6 @@ class Auth extends BaseController
             $email = $this->request->getVar('email', FILTER_SANITIZE_EMAIL);
             $password = $this->request->getVar('password');
             $curr_time = Time::now(app_timezone(), 'en_US');
-
             // echo'<pre>';print_r($this->loginModel);exit;
 
             $userdata = $this->loginModel->searchEmail($email);
