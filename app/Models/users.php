@@ -11,7 +11,6 @@ class Users extends Model
     {
         $query = $this->db->query("select * from users");
         $res = $query->getResult();
-
         return $res;
     }
 
