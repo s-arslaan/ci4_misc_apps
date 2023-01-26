@@ -86,7 +86,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'Shama | Login',
+            'title' => 'App | Login',
         );
 
         return view('login', $data);
@@ -135,7 +135,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'Shama | Register User',
+            'title' => 'App | Register User',
         );
         return view('register', $data);
     }
@@ -208,7 +208,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'Shama | Forgot Password',
+            'title' => 'App | Forgot Password',
         );
         return view('forgot_view', $data);
     }
@@ -254,7 +254,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'Shama | Reset Password',
+            'title' => 'App | Reset Password',
         );
         return view('resetPassword_view', $data);
 

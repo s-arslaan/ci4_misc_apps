@@ -46,7 +46,7 @@ class Home extends BaseController
         }
 
         $data = array(
-            'title' => 'Shama | Dashboard',
+            'title' => 'App | Dashboard',
             'names' => $this->attendanceModel->getUniqueNames(),
             'count_names' => count($this->attendanceModel->getUniqueNames()),
             'months' => $this->attendanceModel->getUniqueMonths(),
@@ -66,7 +66,7 @@ class Home extends BaseController
         $userdata = $this->userModel->getUserDetails($unique_id);
         
         $data = array(
-            'title' => 'Shama | User Profile',
+            'title' => 'App | User Profile',
             'user' => $userdata,
         );
 
@@ -118,8 +118,8 @@ class Home extends BaseController
     public function loginActivity()
     {
         $data = array(
-            'title' => 'Shama | Login Activity',
-            'team' => 'shama education',
+            'title' => 'App | Login Activity',
+            'team' => 'App ',
             // 'userdata' => $this->homeModel->getLoggedinUserData(session()->get('logged_user')),
             'login_info' => $this->homeModel->getLoginActivity()
         );

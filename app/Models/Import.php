@@ -47,7 +47,7 @@ class Import extends Model
 			if(in_array($i,$month_rows)) {
 				if($this->getCell($data, $i, 3) !== 'physiotherapy')
 					return false;
-				if($this->getCell($data, $i, 16) !== 'Shama institute of medical sciences')
+				if($this->getCell($data, $i, 16) !== 'App institute of medical sciences')
 					return false;
 				$month = $this->getCell($data, $i, 30);
 			}
