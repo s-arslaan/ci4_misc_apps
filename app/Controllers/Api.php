@@ -47,36 +47,36 @@ class Api extends BaseController
                 if ($this->apiModel->storeAlert($data)) {
                     $response = array(
                         'status'   => 201,
-                        'error'    => null,
-                        'messages' => [
-                            'success' => 'Alert generated successfully',
-                        ]
+                        'msg' => 'Alert generated successfully',
+                        'response' => true
                     );
                 } else {
                     $response = array(
                         'status'   => 500,
-                        'error'    => 'something went wrong!',
-                        'messages' => []
+                        'msg'    => 'something went wrong!',
+                        'response' => false
                     );
                 }
             } else {
                 $response = array(
                     'status'   => 400,
-                    'error'    => 'data not found!',
-                    'messages' => [],
+                    'msg' => 'data not found!',
                     'response' => false
                 );
             }
         } else {
             $response = array(
                 'status'   => 400,
-                'error'    => 'authentication error!',
-                'messages' => [],
+                'msg'    => 'authentication error!',
                 'response' => false
             );
         }
 
         return $this->respondCreated($response);
+    }
+
+    public function addBeachUser()
+    {
     }
 
     public function getUserAgentInfo($platform_flag = false)
