@@ -7,10 +7,10 @@ use CodeIgniter\Model;
 class UsersModel extends Model
 {
 
-    public function getUsers()
+    public function getWebUsers()
     {
-        $query = $this->db->query("select * from web_users");
-        $res = $query->getResult();
+        $query = $this->db->query("select * from web_users where isAdmin = 0");
+        $res = $query->getResultArray();
         return $res;
     }
     

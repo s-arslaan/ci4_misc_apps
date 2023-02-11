@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\Login;
+use App\Models\UsersModel;
 use ReflectionMethod;
 use CodeIgniter\I18n\Time;
 use DateTime;
@@ -20,7 +21,7 @@ class Auth extends BaseController
     public $session;
     public function __construct()
     {
-        $this->userModel = model(Users::class);
+        $this->userModel = new UsersModel();
         $this->loginModel = model(Login::class);
         $this->session = \Config\Services::session();
         helper('date');
@@ -109,11 +110,12 @@ class Auth extends BaseController
                 'email' => $email,
                 'password' => $password,
                 'mobile' => $mobile,
+                'status' => 1,
                 // 'activation_date' => date('Y-m-d h:i:s'),
                 // 'activation_date' => $curr_time,
                 'unique_id' => $unique_id,
             );
-            // die(print_r($userdata));
+            // dd($userdata);
 
             if ($this->loginModel->searchEmail($email) == false) {
 
@@ -123,14 +125,15 @@ class Auth extends BaseController
                     // email to be sent
 
                     $this->session->setTempdata('success', 'User Registered');
-                    return redirect()->to(current_url());
+                    return redirect()->to('/users');
                 } else {
                     $this->session->setTempdata('error', 'Something went wrong');
-                    return redirect()->to(current_url());
+                    return redirect()->to('/users');
                 }
             } else {
                 $this->session->setTempdata('error', 'User already exists!');
-                return redirect()->to(current_url());
+                return redirect()->to('/users');
+                // return redirect()->to(current_url());
             }
         }
 

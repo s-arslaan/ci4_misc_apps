@@ -2,9 +2,14 @@
 
 <?= $this->section("content") ?>
 <div class="container-fluid px-4">
-   
-    <h1 class="my-3">Users</h1>
-    <div class="row">
+
+    <div class="row my-4">
+        <div class="col-12 mb-2">
+            <div class="d-flex align-items-center">
+                <h2>Users</h2>
+                <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
+            </div>
+        </div>
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
@@ -13,11 +18,86 @@
                     Users List
                 </div>
                 <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Date Added</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $i => $user) : ?>
+                                <tr>
+                                    <th scope="col"><?= $i + 1 ?></th>
+                                    <td><?= $user['name'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                    <td><?= $user['mobile'] ?></td>
+                                    <td><?= date('d-M, Y H:i:s', strtotime($user['date_added'])) ?></td>
+                                    <td><?= $user['status'] == 1 ? 'active':'removed' ?></td>
+                                    <td><button class="btn btn-danger btn-sm">Remove</button></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addUserModalLabel">New User Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="./auth/register">
+                    <div class="form-floating mb-3 ">
+                        <input class="form-control" id="inputName" name="name" type="text" placeholder="Enter your name" required />
+                        <label for="inputFirstName">Name*</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" required />
+                        <label for="inputEmail">Email address*</label>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Create a password" />
+                                <label for="inputPassword">Password*</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputPasswordConfirm" name="confirm_password" type="password" placeholder="Confirm password" />
+                                <label for="inputPasswordConfirm">Confirm Password*</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputMobile" name="mobile" type="number" placeholder="9876543210" required />
+                        <label for="inputMobile">Mobile*</label>
+                    </div>
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">Create Account</button></div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add New User</button>
+      </div> -->
+        </div>
+    </div>
 </div>
 
 <?= $this->endSection("content") ?>
