@@ -2,7 +2,7 @@
 
 <?= $this->section("content") ?>
 <div class="container-fluid px-4">
-
+    <?php if(session()->get('logged_user_isAdmin')) { ?>
     <div class="row my-4">
         <div class="col-12 mb-2">
             <div class="d-flex align-items-center">
@@ -38,7 +38,7 @@
                                     <td><?= $user['email'] ?></td>
                                     <td><?= $user['mobile'] ?></td>
                                     <td><?= date('d-M, Y H:i:s', strtotime($user['date_added'])) ?></td>
-                                    <td><?= $user['status'] == 1 ? 'active':'removed' ?></td>
+                                    <td><?= $user['status'] == 1 ? 'active' : 'removed' ?></td>
                                     <td><button class="btn btn-danger btn-sm">Remove</button></td>
                                 </tr>
                             <?php endforeach ?>
@@ -48,6 +48,10 @@
             </div>
         </div>
     </div>
+    <?php } else { ?>
+        <h2 class="text-danger my-3">You don't have access to this page, contact Admin.</h2>
+    <?php } ?>
+
 
 </div>
 

@@ -69,6 +69,7 @@ class Auth extends BaseController
 
                         $this->session->set('logged_user', $userdata->unique_id);
                         $this->session->set('logged_user_name', $userdata->name);
+                        $this->session->set('logged_user_isAdmin', $userdata->isAdmin);
                         $this->session->setTempdata('success', 'Welcome ' . strtoupper($userdata->name));
                         return redirect()->to(base_url());
 
