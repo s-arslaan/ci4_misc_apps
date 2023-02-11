@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\AttendanceModel;
-use App\Models\Users;
+use App\Models\UsersModel;
 use App\Models\HomeModel;
 use ReflectionMethod;
 
@@ -23,7 +23,7 @@ class Home extends BaseController
         // $this->userModel = new Users();
         // $this->homeModel = new HomeModel();
         // $this->attendanceModel = new AttendanceModel();
-        $this->userModel = model(Users::class);
+        $this->userModel = model(UsersModel::class);
         $this->homeModel = model(HomeModel::class);
         $this->attendanceModel = model(AttendanceModel::class);
         $this->session = \Config\Services::session();
@@ -46,13 +46,12 @@ class Home extends BaseController
         }
 
         $data = array(
-            'title' => 'App | Dashboard',
-            'names' => $this->attendanceModel->getUniqueNames(),
-            'count_names' => count($this->attendanceModel->getUniqueNames()),
-            'months' => $this->attendanceModel->getUniqueMonths(),
-            'count_months' => count($this->attendanceModel->getUniqueMonths()),
+            'title' => 'Beach App | Dashboard',
+            'alerts' => $this->userModel->getAlerts()
         );
+
         // echo '<pre>';print_r($data);exit;
+        // dd($data);
         return view('dashboard_view', $data);
     }
 
@@ -66,7 +65,7 @@ class Home extends BaseController
         $userdata = $this->userModel->getUserDetails($unique_id);
         
         $data = array(
-            'title' => 'App | User Profile',
+            'title' => 'Beach App | User Profile',
             'user' => $userdata,
         );
 

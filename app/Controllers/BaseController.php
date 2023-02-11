@@ -48,5 +48,24 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        if (!function_exists('dd')) {
+            /**
+             * @author Arslaan
+             * Die and Dump the variable
+             *  
+             * @param mixed|array|object   $var    variable to print
+             * @param string  $method print_r | var_dump
+             */
+            function dd($var, string $method = 'print_r')
+            {
+                if ($method === 'print_r') {
+                    print_r($var);
+                } else {
+                    var_dump($var);
+                }
+                die;
+            }
+        }
     }
 }

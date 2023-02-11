@@ -9,7 +9,7 @@ class Login extends Model
 
     public function searchEmail($email)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->select('*')->where('email', $email);
         $res = $builder->get();
 

@@ -4,19 +4,26 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Users extends Model
+class UsersModel extends Model
 {
 
     public function getUsers()
     {
-        $query = $this->db->query("select * from users");
+        $query = $this->db->query("select * from web_users");
         $res = $query->getResult();
+        return $res;
+    }
+    
+    public function getAlerts()
+    {
+        $query = $this->db->query("select * from beach_alerts");
+        $res = $query->getResultArray();
         return $res;
     }
 
     public function addUser($data)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->insert($data);
 
         if ($this->db->affectedRows() == 1) {
@@ -28,7 +35,7 @@ class Users extends Model
     
     public function updateUserDetails($data)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->where('unique_id', $data['id']);
         $builder->update(['name' => $data['name'], 'mobile' => $data['mobile']]);
 
@@ -41,7 +48,7 @@ class Users extends Model
     
     public function updateUserPassword($data)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->select('password')->where('unique_id', $data['id']);
         $pass = $builder->get()->getRow()->password;
 
@@ -62,7 +69,7 @@ class Users extends Model
     
     public function resetPassword($data)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->where('unique_id', $data['id']);
         $builder->update(['password' => md5($data['new_pass'])]);
     
@@ -76,8 +83,8 @@ class Users extends Model
     public function getUserDetails($id)
     {
 
-        $builder = $this->db->table($this->DBPrefix . 'users');
-        $builder->select('name,email,mobile,activation_date,unique_id,status,updated_at')->where('unique_id', $id);
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
+        $builder->select('name,email,mobile,unique_id,status,updated_at')->where('unique_id', $id);
         $res = $builder->get();
 
         if (count($res->getResultArray()) == 1) {
@@ -89,7 +96,7 @@ class Users extends Model
 
     public function updateStatus($id)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->where('unique_id', $id);
         $builder->update(['status' => 1]);
 
@@ -102,7 +109,7 @@ class Users extends Model
 
     public function updatedAt($unique_id, $time)
     {
-        $builder = $this->db->table($this->DBPrefix . 'users');
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
         $builder->where('unique_id', $unique_id);
         $builder->update(['updated_at' => $time]);
 

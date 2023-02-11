@@ -110,7 +110,7 @@ class Auth extends BaseController
                 'password' => $password,
                 'mobile' => $mobile,
                 // 'activation_date' => date('Y-m-d h:i:s'),
-                'activation_date' => $curr_time,
+                // 'activation_date' => $curr_time,
                 'unique_id' => $unique_id,
             );
             // die(print_r($userdata));

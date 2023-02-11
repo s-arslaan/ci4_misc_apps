@@ -49,12 +49,9 @@
       if (url.match(/\/dashboard$/)) {
         $(".nav .nav-link:eq(0)").addClass('active');
         $(".nav .nav-link:eq(0) path").attr("fill","rgba(255,255,255,1)");
-      } else if (url.match(/\/attendance$/)) {
+      } else if (url.match(/\/users$/)) {
         $(".nav .nav-link:eq(1)").addClass('active');
         $(".nav .nav-link:eq(1) path").attr("fill","rgba(255,255,255,1)");
-      } else if (url.match(/\/timings$/)) {
-        $(".nav .nav-link:eq(2)").addClass('active');
-        $(".nav .nav-link:eq(2) path").attr("fill","rgba(255,255,255,1)");
       }
     });
   </script>
