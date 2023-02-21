@@ -40,6 +40,7 @@ class Api extends BaseController
                     'gToken' => $this->request->getVar('token', FILTER_DEFAULT),
                     'latitude' => $this->request->getVar('latitude', FILTER_DEFAULT),
                     'longitude' => $this->request->getVar('longitude', FILTER_DEFAULT),
+                    'address' => $this->request->getVar('address', FILTER_DEFAULT),
                     'ip' => $this->request->getIPAddress(),
                 );
 
