@@ -37,7 +37,7 @@ class Api extends BaseController
 
                 $data = array(
                     // 'user_id' => $this->request->getVar('user_id', FILTER_DEFAULT),
-                    'user_id' => '0',
+                    'gToken' => $this->request->getVar('token', FILTER_DEFAULT),
                     'latitude' => $this->request->getVar('latitude', FILTER_DEFAULT),
                     'longitude' => $this->request->getVar('longitude', FILTER_DEFAULT),
                     'ip' => $this->request->getIPAddress(),
@@ -48,27 +48,27 @@ class Api extends BaseController
                     $response = array(
                         'status'   => 201,
                         'msg' => 'Alert generated successfully',
-                        'response' => true
+                        'success' => true
                     );
                 } else {
                     $response = array(
                         'status'   => 500,
                         'msg'    => 'something went wrong!',
-                        'response' => false
+                        'success' => false
                     );
                 }
             } else {
                 $response = array(
                     'status'   => 400,
                     'msg' => 'data not found!',
-                    'response' => false
+                    'success' => false
                 );
             }
         } else {
             $response = array(
                 'status'   => 400,
                 'msg'    => 'authentication error!',
-                'response' => false
+                'success' => false
             );
         }
 
