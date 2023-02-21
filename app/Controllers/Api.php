@@ -74,6 +74,61 @@ class Api extends BaseController
 
         return $this->respondCreated($response);
     }
+    
+    public function googleSignIn()
+    {
+        if ($this->request->getVar('token') != null) {
+
+            if ($this->request->getMethod() == 'post') {
+                // 110022754939632693383
+
+                $data = array(
+                    // 'user_id' => $this->request->getVar('user_id', FILTER_DEFAULT),
+                    'name' => $this->request->getVar('name', FILTER_DEFAULT),
+                    'email' => $this->request->getVar('email', FILTER_DEFAULT),
+                    'familyName' => $this->request->getVar('familyName', FILTER_DEFAULT),
+                    'gToken' => $this->request->getVar('token'),
+                );
+
+                $user_id = $this->apiModel->addBeachUser($data);
+                if ($user_id) {
+                    if($user_id === 1) {
+                        $response = array(
+                            'status'   => 201,
+                            'msg' => 'User Registered Successfully',
+                            'success' => true,
+                        );
+                    } else {
+                        $response = array(
+                            'status'   => 201,
+                            'msg' => 'User Registered Already!',
+                            'success' => true,
+                        );
+                    }
+                } else {
+                    $response = array(
+                        'status'   => 500,
+                        'msg'    => 'something went wrong!',
+                        'success' => false
+                    );
+                }
+            } else {
+                $response = array(
+                    'status'   => 400,
+                    'msg' => 'data not found!',
+                    'success' => false
+                );
+            }
+        } else {
+            $response = array(
+                'status'   => 400,
+                'msg'    => 'Authentication error!',
+                'success' => false
+            );
+        }
+
+        return $this->respondCreated($response);
+    }
 
     public function addBeachUser()
     {
