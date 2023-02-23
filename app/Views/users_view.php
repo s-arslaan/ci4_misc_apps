@@ -21,7 +21,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Mobile</th>
@@ -33,13 +32,13 @@
                         <tbody>
                             <?php foreach ($users as $i => $user) : ?>
                                 <tr>
-                                    <th scope="col"><?= $i + 1 ?></th>
                                     <td><?= $user['name'] ?></td>
                                     <td><?= $user['email'] ?></td>
                                     <td><?= $user['mobile'] ?></td>
                                     <td><?= date('d-M, Y H:i:s', strtotime($user['date_added'])) ?></td>
                                     <td><?= $user['status'] == 1 ? 'active' : 'removed' ?></td>
-                                    <td><button class="btn btn-danger btn-sm">Remove</button></td>
+                                    <!-- <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal">Remove</button></td> -->
+                                    <td><a class="btn btn-danger btn-sm" href="users/delete_user/<?php echo $user['unique_id'];?>">Delete</a></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -51,7 +50,6 @@
     <?php } else { ?>
         <h2 class="text-danger my-3">You don't have access to this page, contact Admin.</h2>
     <?php } ?>
-
 
 </div>
 
@@ -92,7 +90,7 @@
                         <label for="inputMobile">Mobile*</label>
                     </div>
                     <div class="mt-4 mb-0">
-                        <div class="d-grid"><button class="btn btn-primary btn-block" type="submit">Create Account</button></div>
+                        <div class=""><button class="btn btn-primary btn-block" type="submit">Create Account</button></div>
                     </div>
                 </form>
             </div>
@@ -100,6 +98,29 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Add New User</button>
       </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteUserModalLabel">Are you sure?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <div class="form-floating mb-3 mb-md-0">
+                                
+                                    <a class="btn btn-primary btn-sm" href="users/delete_user/<?php echo $user['unique_id'];?>">Delete</a>
+                                
+                                
+                            </div>
+                        </div>
+                   
+                    
         </div>
     </div>
 </div>

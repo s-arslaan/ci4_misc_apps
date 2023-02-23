@@ -9,7 +9,7 @@ class UsersModel extends Model
 
     public function getWebUsers()
     {
-        $query = $this->db->query("select * from web_users where isAdmin = 0");
+        $query = $this->db->query("select * from web_users where isAdmin = 0 AND status = 1");
         $res = $query->getResultArray();
         return $res;
     }
@@ -20,6 +20,9 @@ class UsersModel extends Model
         $res = $query->getResultArray();
         return $res;
     }
+    
+   
+    
 
     public function addUser($data)
     {
@@ -32,7 +35,9 @@ class UsersModel extends Model
             return False;
         }
     }
+
     
+
     public function updateUserDetails($data)
     {
         $builder = $this->db->table($this->DBPrefix . 'web_users');
@@ -94,6 +99,9 @@ class UsersModel extends Model
         }
     }
 
+
+   
+
     public function updateStatus($id)
     {
         $builder = $this->db->table($this->DBPrefix . 'web_users');
@@ -119,4 +127,18 @@ class UsersModel extends Model
             return false;
         }
     }
+
+    public function deactivate_web_user($unique_id)
+    {
+        $builder = $this->db->table($this->DBPrefix . 'web_users');
+        $builder->where('unique_id', $unique_id);
+        $builder->update(['status' => 0]);
+
+        if ($this->db->affectedRows() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

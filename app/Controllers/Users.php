@@ -35,6 +35,8 @@ class Users extends BaseController
             return redirect()->to("./auth/login");
         }
 
+        // dd($_SESSION);
+
         $data = array(
             'title' => 'Beach App | Users',
             'users' => $this->userModel->getWebUsers()
@@ -83,5 +85,22 @@ class Users extends BaseController
             throw PageNotFoundException::forPageNotFound();
         }
     }
-    
+
+    public function delete_user($unique_id)
+    {
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        if($this->userModel->deactivate_web_user($unique_id)) {
+            $this->session->setTempdata('success', 'User deleted successfully!');
+            return redirect()->to("./users");
+        } else {
+            $this->session->setTempdata('error', 'Somethhing went wrong');
+        }
+    }
 }
+
+
+
+
