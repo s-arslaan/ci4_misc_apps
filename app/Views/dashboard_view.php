@@ -36,16 +36,19 @@
                     Alerts
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">User ID</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Timestamp</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Address</th>
                                 <th scope="col">Latitude</th>
                                 <th scope="col">Longitude</th>
                                 <th scope="col">Rescue Status</th>
                                 <th scope="col">Remarks</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -53,12 +56,15 @@
                             <?php foreach ($alerts as $i => $alert) : ?>
                                 <tr>
                                     <th scope="col"><?= $i+1 ?></th>
-                                    <td><?= $alert['user_id'] ?></td>
+                                    <td><?= $alert['name'] ?></td>
                                     <td><?= date('d-M, Y H:i:s', strtotime($alert['timestamp'])) ?></td>
+                                    <td><?= $alert['city_name'] ?></td>
+                                    <td><?= $alert['address'] ?></td>
                                     <td><?= $alert['latitude'] ?></td>
                                     <td><?= $alert['longitude'] ?></td>
                                     <td><?= $alert['isRescued'] == 0 ? 'Not Rescued':'Rescued' ?></td>
                                     <td><?= $alert['remarks'] ?? '' ?></td>
+                                    <td><?= $alert['email'] ?? '' ?></td>
                                     <td><button class="btn btn-warning btn-sm">Details</button></td>
                                 </tr>
                             <?php endforeach ?>

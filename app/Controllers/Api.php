@@ -41,6 +41,7 @@ class Api extends BaseController
                     'latitude' => $this->request->getVar('latitude', FILTER_DEFAULT),
                     'longitude' => $this->request->getVar('longitude', FILTER_DEFAULT),
                     'address' => $this->request->getVar('address', FILTER_DEFAULT),
+                    'city_name' => $this->request->getVar('city', FILTER_DEFAULT),
                     'ip' => $this->request->getIPAddress(),
                 );
 
