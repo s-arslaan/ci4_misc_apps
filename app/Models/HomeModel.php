@@ -30,4 +30,14 @@ class HomeModel extends Model
 
         return $res;
     }
+    
+    public function changeRescueStatus($id)
+    {
+
+        if ($this->db->simpleQuery("UPDATE beach_alerts SET isRescued = 1 WHERE alert_id = $id")) {
+            return True;
+        } else {
+            return False;
+        }
+    }
 }

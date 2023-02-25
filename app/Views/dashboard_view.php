@@ -62,10 +62,13 @@
                                     <td><?= $alert['address'] ?></td>
                                     <td><?= $alert['latitude'] ?></td>
                                     <td><?= $alert['longitude'] ?></td>
-                                    <td><?= $alert['isRescued'] == 0 ? 'Not Rescued':'Rescued' ?></td>
+                                    <td>
+                                        <?= $alert['isRescued'] == 0 ? 'Not Rescued':'Rescued' ?>
+                                        
+                                    </td>
                                     <td><?= $alert['remarks'] ?? '' ?></td>
                                     <td><?= $alert['email'] ?? '' ?></td>
-                                    <td><button class="btn btn-warning btn-sm">Details</button></td>
+                                    <td><a href="changeRescueStatus/<?= $alert['alert_id'] ?>" class="btn btn-success btn-sm">Mark Rescued</a></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
