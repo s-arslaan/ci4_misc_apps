@@ -13,4 +13,21 @@ class HomeModel extends Model
 
         return $res;
     }
+    
+    public function getSuccessfulRescueCount()
+    {
+        $query = $this->db->query("select count(alert_id) as count from beach_alerts where isRescued = 1");
+        $res = $query->getResultArray();
+
+        return $res;
+    }
+    
+    public function getTodaysAlertCount()
+    {
+        $query = $this->db->query("select count(alert_id) as count from beach_alerts where DATE(timestamp) = CURDATE();
+        ");
+        $res = $query->getResultArray();
+
+        return $res;
+    }
 }

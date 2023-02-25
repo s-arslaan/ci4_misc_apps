@@ -9,7 +9,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="d-flex card-body display-5">
                     Successful Rescues
-                    <span class="badge bg-secondary ms-auto">24</span>
+                    <span class="badge bg-secondary ms-auto"><?= $successful_rescues_count[0]['count'] ?></span>
                 </div>
                 <!-- <div class="card-footer d-flex align-items-center justify-content-between"> -->
                 <!-- <a class="small text-white stretched-link" href="=/attendance">View Details</a> -->
@@ -22,7 +22,7 @@
             <div class="card bg-danger text-white mb-4">
                 <div class="d-flex card-body display-5">
                     Today's Alerts
-                    <span class="badge bg-secondary ms-auto">3</span>
+                    <span class="badge bg-secondary ms-auto"><?= $todays_alerts[0]['count'] ?></span>
                 </div>
             </div>
         </div>

@@ -47,7 +47,9 @@ class Home extends BaseController
 
         $data = array(
             'title' => 'Beach App | Dashboard',
-            'alerts' => $this->userModel->getAlerts()
+            'alerts' => $this->userModel->getAlerts(),
+            'successful_rescues_count' => $this->homeModel->getSuccessfulRescueCount(),
+            'todays_alerts' => $this->homeModel->getTodaysAlertCount(),
         );
 
         // echo '<pre>';print_r($data);exit;
