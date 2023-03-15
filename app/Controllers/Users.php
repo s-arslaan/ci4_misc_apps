@@ -38,11 +38,27 @@ class Users extends BaseController
         // dd($_SESSION);
 
         $data = array(
-            'title' => 'Beach App | Users',
+            'title' => 'Beach App | Web Users',
             'users' => $this->userModel->getWebUsers()
         );
         
         return view('users_view', $data);
+    }
+    
+    public function beachUsers()
+    {   
+        if(!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        // dd($_SESSION);
+
+        $data = array(
+            'title' => 'Beach App | Beach Users',
+            'users' => $this->userModel->getBeachUsers()
+        );
+        
+        return view('beachUsers_view', $data);
     }
 
     public function timings()

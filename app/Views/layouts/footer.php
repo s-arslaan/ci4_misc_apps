@@ -52,6 +52,9 @@
       } else if (url.match(/\/users$/)) {
         $(".nav .nav-link:eq(1)").addClass('active');
         $(".nav .nav-link:eq(1) path").attr("fill","rgba(255,255,255,1)");
+      } else if (url.match(/\/users\/beachUsers$/)) {
+        $(".nav .nav-link:eq(2)").addClass('active');
+        $(".nav .nav-link:eq(2) path").attr("fill","rgba(255,255,255,1)");
       }
     });
   </script>

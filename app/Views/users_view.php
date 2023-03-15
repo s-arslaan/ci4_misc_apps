@@ -2,51 +2,53 @@
 
 <?= $this->section("content") ?>
 <div class="container-fluid px-4">
-    <?php if(session()->get('logged_user_isAdmin')) { ?>
-    <div class="row my-4">
-        <div class="col-12 mb-2">
-            <div class="d-flex align-items-center">
-                <h2>Users</h2>
-                <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <!-- <i class="fas fa-chart-area me-1"></i> -->
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAyElEQVRIie2UMQrCMBiFP11108FB5x7FwUk8glcQC97IUnB28DKKTlZoR4fUIX8RQ2xjG4dCH7wlj34v/GkCndqiGRADmfgABD7hCZAbfkjWWLEFXjjyUZCVFKRVH/cbluc+Ck4l2dF9L98VoA/UHM8dmPooAP23ROiZp8DeJ/yvGgJrYGTJxpIN6sJXwA0979CS7yS7Astf4VtA8T7Qp6xNxKGsFbkCNq7wuQF3tQIWLgWXGvDCZxPWsxRU3s4KfTCbPhWdWqAXqAxUU0+GUDEAAAAASUVORK5CYII=">
-                    Users List
+    <?php if (session()->get('logged_user_isAdmin')) { ?>
+        <div class="row my-4">
+            <div class="col-12 mb-2">
+                <div class="d-flex align-items-center">
+                    <h2>Users</h2>
+                    <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Mobile</th>
-                                <th scope="col">Date Added</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($users as $i => $user) : ?>
+            </div>
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <!-- <i class="fas fa-chart-area me-1"></i> -->
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAyElEQVRIie2UMQrCMBiFP11108FB5x7FwUk8glcQC97IUnB28DKKTlZoR4fUIX8RQ2xjG4dCH7wlj34v/GkCndqiGRADmfgABD7hCZAbfkjWWLEFXjjyUZCVFKRVH/cbluc+Ck4l2dF9L98VoA/UHM8dmPooAP23ROiZp8DeJ/yvGgJrYGTJxpIN6sJXwA0979CS7yS7Astf4VtA8T7Qp6xNxKGsFbkCNq7wuQF3tQIWLgWXGvDCZxPWsxRU3s4KfTCbPhWdWqAXqAxUU0+GUDEAAAAASUVORK5CYII=">
+                        Users List
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?= $user['name'] ?></td>
-                                    <td><?= $user['email'] ?></td>
-                                    <td><?= $user['mobile'] ?></td>
-                                    <td><?= date('d-M, Y H:i:s', strtotime($user['date_added'])) ?></td>
-                                    <td><?= $user['status'] == 1 ? 'active' : 'removed' ?></td>
-                                    <!-- <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal">Remove</button></td> -->
-                                    <td><a class="btn btn-danger btn-sm" href="users/delete_user/<?php echo $user['unique_id'];?>">Delete</a></td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Date Added</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($users as $i => $user) : ?>
+                                    <tr>
+                                        <td><?= $i + 1 ?></td>
+                                        <td><?= $user['name'] ?></td>
+                                        <td><?= $user['email'] ?></td>
+                                        <td><?= $user['mobile'] ?></td>
+                                        <td><?= date('d-M, Y H:i:s', strtotime($user['date_added'])) ?></td>
+                                        <td><?= $user['status'] == 1 ? 'active' : 'removed' ?></td>
+                                        <!-- <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal">Remove</button></td> -->
+                                        <td><a class="btn btn-danger btn-sm" href="users/delete_user/<?php echo $user['unique_id']; ?>">Delete</a></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <?php } else { ?>
         <h2 class="text-danger my-3">You don't have access to this page, contact Admin.</h2>
     <?php } ?>
@@ -110,19 +112,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-md-2">
-                            <div class="form-floating mb-3 mb-md-0">
-                                
-                                    <a class="btn btn-primary btn-sm" href="users/delete_user/<?php echo $user['unique_id'];?>">Delete</a>
-                                
-                                
-                            </div>
-                        </div>
-                   
-                    
-        </div>
-    </div>
-</div>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <div class="form-floating mb-3 mb-md-0">
 
-<?= $this->endSection("content") ?>
+                            <a class="btn btn-primary btn-sm" href="users/delete_user/<?php echo $user['unique_id']; ?>">Delete</a>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <?= $this->endSection("content") ?>
