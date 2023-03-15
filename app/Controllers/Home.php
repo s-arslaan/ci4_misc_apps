@@ -88,6 +88,24 @@ class Home extends BaseController
 
         return redirect()->to("./home/dashboard");
     }
+    
+    public function addRemarks($alert_id)
+    {
+        if (!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        $remarks = $this->request->getVar('remarks',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // dd($remarks);
+
+        if ($this->homeModel->addRemarks($remarks, $alert_id)) {
+            $this->session->setTempdata('success', 'Remarks Added');
+        } else {
+            $this->session->setTempdata('error', 'Something Went Wrong!');
+        }
+
+        return redirect()->to("./home/dashboard");
+    }
 
     public function editProfile()
     {

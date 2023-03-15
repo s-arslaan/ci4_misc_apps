@@ -23,12 +23,11 @@ class UsersModel extends Model
     
     public function getAlerts()
     {
-        $query = $this->db->query("select ba.alert_id, u.name, u.email, u.gToken, ba.timestamp, ba.latitude, ba.longitude, ba.address, ba.city_name, ba.isRescued, ba.remarks from beach_alerts ba LEFT JOIN beach_users u ON(u.gToken = ba.gToken) ORDER BY ba.timestamp DESC");
+        $query = $this->db->query("select ba.alert_id, u.name, u.email, u.gToken, ba.timestamp, ba.latitude, ba.longitude, ba.address, ba.city_name, ba.isRescued, COALESCE(ba.remarks, '') as remarks from beach_alerts ba LEFT JOIN beach_users u ON(u.gToken = ba.gToken) ORDER BY ba.timestamp DESC");
         $res = $query->getResultArray();
         return $res;
     }
-    
-   
+     
     
 
     public function addUser($data)

@@ -40,4 +40,14 @@ class HomeModel extends Model
             return False;
         }
     }
+    
+    public function addRemarks($remarks, $id)
+    {
+
+        if ($this->db->simpleQuery("UPDATE beach_alerts SET remarks = '$remarks' WHERE alert_id = $id")) {
+            return True;
+        } else {
+            return False;
+        }
+    }
 }

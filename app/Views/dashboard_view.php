@@ -72,7 +72,10 @@
                                     </td>
                                     <td><?= $alert['remarks'] ?? '' ?></td>
                                     <td><?= $alert['email'] ?? '' ?></td>
-                                    <td><a href="changeRescueStatus/<?= $alert['alert_id'] ?>" class="btn btn-success btn-sm">Mark Rescued</a></td>
+                                    <td>
+                                        <a href="changeRescueStatus/<?= $alert['alert_id'] ?>" class="btn btn-success btn-sm m-1">Rescued</a>
+                                        <button type="button" class="btn btn-warning btn-sm m-1" data-bs-toggle="modal" data-bs-target="#remarkModal" onClick="addRemark('<?= $alert['remarks'] ?>',<?= $alert['alert_id'] ?>)">Remarks</button>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -103,14 +106,34 @@
     </div>
 </div>
 
+<!-- Remarks Modal -->
+<div class="modal fade" id="remarkModal" tabindex="-1" aria-labelledby="remarkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="remarkModalLabel">Remarks</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="remarksForm">
+                    <div class="form-floating mb-2">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="remarks" name="remarks" style="height: 100px"></textarea>
+                        <label for="remarks">Remarks</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Add Remark</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= $maps_api_key ?>&callback=map_initialize" type="text/javascript"></script>
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=" type="text/javascript"></script> -->
 
 <script type="text/javascript">
-
     function map_initialize(latitude, longitude) {
 
-        if(latitude == null || longitude == null) {
+        if (latitude == null || longitude == null) {
             latitude = 15.390598;
             longitude = 73.806622;
         }
@@ -118,7 +141,7 @@
         $('#lat').text(latitude);
         $('#long').text(longitude);
 
-        console.log('curr lat: ' + latitude+ ' curr long: ' + longitude);
+        console.log('curr lat: ' + latitude + ' curr long: ' + longitude);
 
         const latlng = {
             lat: latitude,
@@ -138,6 +161,11 @@
             map: map,
         });
 
+    }
+
+    function addRemark(remarks, id) {
+        $('#remarks').val(remarks);
+        $('#remarksForm').attr('action', 'addRemarks/' + id);
     }
 </script>
 
