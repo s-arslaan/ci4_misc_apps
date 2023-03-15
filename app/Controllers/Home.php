@@ -49,6 +49,7 @@ class Home extends BaseController
             'alerts' => $this->userModel->getAlerts(),
             'successful_rescues_count' => $this->homeModel->getSuccessfulRescueCount(),
             'todays_alerts' => $this->homeModel->getTodaysAlertCount(),
+            'maps_api_key' => getenv('custom.maps_api_key'),
         );
 
         // echo '<pre>';print_r($data);exit;

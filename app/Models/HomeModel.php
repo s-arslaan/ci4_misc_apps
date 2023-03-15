@@ -16,7 +16,7 @@ class HomeModel extends Model
     
     public function getSuccessfulRescueCount()
     {
-        $query = $this->db->query("select count(alert_id) as count from beach_alerts where isRescued = 1");
+        $query = $this->db->query("select count(alert_id) as count from beach_alerts where DATE(timestamp) = CURDATE() AND isRescued = 1");
         $res = $query->getResultArray();
 
         return $res;

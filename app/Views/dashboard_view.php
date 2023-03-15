@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="card bg-primary text-white mb-4">
                 <div class="d-flex card-body display-5">
-                    Successful Rescues
+                    Today's Rescues
                     <span class="badge bg-secondary ms-auto"><?= $successful_rescues_count[0]['count'] ?></span>
                 </div>
                 <!-- <div class="card-footer d-flex align-items-center justify-content-between"> -->
@@ -46,6 +46,7 @@
                                 <th scope="col">Address</th>
                                 <th scope="col">Latitude</th>
                                 <th scope="col">Longitude</th>
+                                <th scope="col">Location</th>
                                 <th scope="col">Rescue Status</th>
                                 <th scope="col">Remarks</th>
                                 <th scope="col">Email</th>
@@ -55,7 +56,7 @@
                         <tbody>
                             <?php foreach ($alerts as $i => $alert) : ?>
                                 <tr>
-                                    <th scope="col"><?= $i+1 ?></th>
+                                    <th scope="col"><?= $i + 1 ?></th>
                                     <td><?= $alert['name'] ?></td>
                                     <td><?= date('d-M, Y H:i:s', strtotime($alert['timestamp'])) ?></td>
                                     <td><?= $alert['city_name'] ?></td>
@@ -63,8 +64,11 @@
                                     <td><?= $alert['latitude'] ?></td>
                                     <td><?= $alert['longitude'] ?></td>
                                     <td>
-                                        <?= $alert['isRescued'] == 0 ? 'Not Rescued':'Rescued' ?>
-                                        
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#mapModal" onClick="map_initialize(<?= $alert['latitude'] ?>,<?= $alert['longitude'] ?>)">Map</button>
+                                    </td>
+                                    <td>
+                                        <?= $alert['isRescued'] == 0 ? 'Not Rescued' : 'Rescued' ?>
+
                                     </td>
                                     <td><?= $alert['remarks'] ?? '' ?></td>
                                     <td><?= $alert['email'] ?? '' ?></td>
@@ -79,5 +83,62 @@
     </div>
 
 </div>
+
+<!-- Map Modal -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="mapModalLabel">Location</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="map" style="height: 400px; width: 100%;"></div>
+                <div>
+                    <p>Latitude: <span id="lat"></span></p>
+                    <p>Longitude: <span id="long"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= $maps_api_key ?>&callback=map_initialize" type="text/javascript"></script>
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=" type="text/javascript"></script> -->
+
+<script type="text/javascript">
+
+    function map_initialize(latitude, longitude) {
+
+        if(latitude == null || longitude == null) {
+            latitude = 15.390598;
+            longitude = 73.806622;
+        }
+
+        $('#lat').text(latitude);
+        $('#long').text(longitude);
+
+        console.log('curr lat: ' + latitude+ ' curr long: ' + longitude);
+
+        const latlng = {
+            lat: latitude,
+            lng: longitude
+        };
+
+        // The map, centered at latlng
+        const map = new google.maps.Map(document.getElementById("map"), {
+            mapTypeId: 'satellite',
+            zoom: 21,
+            center: latlng,
+        });
+
+        // The marker, positioned at latlng
+        const marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+        });
+
+    }
+</script>
 
 <?= $this->endSection("content") ?>
