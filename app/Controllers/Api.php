@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\Users;
 use App\Models\Login;
+use App\Models\NaiveBayes;
 use ReflectionMethod;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -19,12 +20,14 @@ class Api extends BaseController
     public $userModel;
     public $loginModel;
     public $apiModel;
+    public $naiveBayesModel;
     public $session;
     public function __construct()
     {
         $this->userModel = model(Users::class);
         $this->loginModel = model(Login::class);
         $this->apiModel = model(ApiModel::class);
+        $this->naiveBayesModel = model(NaiveBayes::class);
         $this->session = \Config\Services::session();
         helper('date');
     }
@@ -134,6 +137,67 @@ class Api extends BaseController
 
     public function addBeachUser()
     {
+    }
+
+    public function beachAlertAuto()
+    {
+        if ($this->request->getVar('token') != null) {
+
+            if ($this->request->getMethod() == 'post') {
+
+                $beats = $this->request->getVar('beats', FILTER_DEFAULT);
+
+                if($this->naiveBayesModel->part1($beats)) {
+
+                    $data = array(
+                        'gToken' => $this->request->getVar('token', FILTER_DEFAULT),
+                        'latitude' => $this->request->getVar('latitude', FILTER_DEFAULT),
+                        'longitude' => $this->request->getVar('longitude', FILTER_DEFAULT),
+                        'address' => $this->request->getVar('address', FILTER_DEFAULT),
+                        'city_name' => $this->request->getVar('city', FILTER_DEFAULT),
+                        'ip' => $this->request->getIPAddress(),
+                    );
+    
+                    // $user_id = $this->apiModel->storeAlert($data);
+                    if ($this->apiModel->storeAlert($data)) {
+                        $response = array(
+                            'status'   => 201,
+                            'msg' => 'Auto Alert generated successfully',
+                            'success' => true
+                        );
+                    } else {
+                        $response = array(
+                            'status'   => 500,
+                            'msg'    => 'something went wrong!',
+                            'success' => false
+                        );
+                    }
+
+                } else {
+                    $response = array(
+                        'status'   => 300,
+                        'msg'    => 'Heartbeat Normal',
+                        'success' => false
+                    );
+                }
+                
+                
+            } else {
+                $response = array(
+                    'status'   => 400,
+                    'msg' => 'data not found!',
+                    'success' => false
+                );
+            }
+        } else {
+            $response = array(
+                'status'   => 400,
+                'msg'    => 'authentication error!',
+                'success' => false
+            );
+        }
+
+        return $this->respondCreated($response);
     }
 
     public function getUserAgentInfo($platform_flag = false)
