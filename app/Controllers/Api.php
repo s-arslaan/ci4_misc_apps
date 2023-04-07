@@ -48,17 +48,36 @@ class Api extends BaseController
                     'ip' => $this->request->getIPAddress(),
                 );
 
-                // $user_id = $this->apiModel->storeAlert($data);
-                if ($this->apiModel->storeAlert($data)) {
-                    $response = array(
-                        'status'   => 201,
-                        'msg' => 'Alert generated successfully',
-                        'success' => true
-                    );
+                $mid_point_lat = 15.391777;
+                $mid_point_long = 73.804167;
+                $max_distance = 300; // in meters
+
+                // $beach_dist = $this->apiModel->haversineGreatCircleDistance((float)$data['latitude'], (float)$data['longitude'], $mid_point_lat, $mid_point_long);
+                // echo $beach_dist;exit;
+
+                // Haversine formula
+                /*
+                    Hav(0) = sin^2 (0/2)
+                */
+
+                if ($this->apiModel->haversineGreatCircleDistance((float)$data['latitude'], (float)$data['longitude'], $mid_point_lat, $mid_point_long) < $max_distance) {
+                    if ($this->apiModel->storeAlert($data)) {
+                        $response = array(
+                            'status'   => 201,
+                            'msg' => 'Alert generated successfully',
+                            'success' => true
+                        );
+                    } else {
+                        $response = array(
+                            'status'   => 500,
+                            'msg'    => 'something went wrong!',
+                            'success' => false
+                        );
+                    }
                 } else {
                     $response = array(
-                        'status'   => 500,
-                        'msg'    => 'something went wrong!',
+                        'status'   => 300,
+                        'msg'    => 'Invalid Alert!',
                         'success' => false
                     );
                 }
@@ -79,7 +98,7 @@ class Api extends BaseController
 
         return $this->respondCreated($response);
     }
-    
+
     public function googleSignIn()
     {
         if ($this->request->getVar('token') != null) {
@@ -97,7 +116,7 @@ class Api extends BaseController
 
                 $user_id = $this->apiModel->addBeachUser($data);
                 if ($user_id) {
-                    if($user_id === 1) {
+                    if ($user_id === 1) {
                         $response = array(
                             'status'   => 201,
                             'msg' => 'User Registered Successfully',
@@ -147,7 +166,7 @@ class Api extends BaseController
 
                 $beats = $this->request->getVar('beats', FILTER_DEFAULT);
 
-                if($this->naiveBayesModel->part1($beats)) {
+                if ($this->naiveBayesModel->part1($beats)) {
 
                     $data = array(
                         'gToken' => $this->request->getVar('token', FILTER_DEFAULT),
@@ -157,7 +176,7 @@ class Api extends BaseController
                         'city_name' => $this->request->getVar('city', FILTER_DEFAULT),
                         'ip' => $this->request->getIPAddress(),
                     );
-    
+
                     // $user_id = $this->apiModel->storeAlert($data);
                     if ($this->apiModel->storeAlert($data)) {
                         $response = array(
@@ -172,7 +191,6 @@ class Api extends BaseController
                             'success' => false
                         );
                     }
-
                 } else {
                     $response = array(
                         'status'   => 300,
@@ -180,8 +198,6 @@ class Api extends BaseController
                         'success' => false
                     );
                 }
-                
-                
             } else {
                 $response = array(
                     'status'   => 400,
@@ -198,6 +214,21 @@ class Api extends BaseController
         }
 
         return $this->respondCreated($response);
+    }
+
+    public function isValidAlert($lat, $long)
+    {
+        $mid_point_lat = 15.391777;
+        $mid_point_long = 73.804167;
+
+        $beach_dist = $this->apiModel->haversineGreatCircleDistance($lat, $long, $mid_point_lat, $mid_point_long);
+        echo $beach_dist;exit;
+
+        if ($beach_dist) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getUserAgentInfo($platform_flag = false)

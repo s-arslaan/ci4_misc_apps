@@ -13,7 +13,7 @@
     <link href="<?= base_url() ?>/assets/css/styles.css" rel="stylesheet" />
     <link href="<?= base_url() ?>/assets/css/toastr.min.css" rel="stylesheet" />
     <!-- fa -->
-    <!-- <script src="<?php //base_url() ?>/assets/js/all.min.js"></script> -->
+    <!-- <script src="<?= base_url() ?>/assets/js/all.min.js"></script> -->
     <script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>
     <!-- <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script> -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" /> -->

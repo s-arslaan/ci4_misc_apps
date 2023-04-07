@@ -147,6 +147,18 @@ class Home extends BaseController
         return redirect()->to("./home/profile");
     }
 
+    public function beachControls()
+    {
+        if (!session()->has('logged_user')) {
+            return redirect()->to("./auth/login");
+        }
+
+        $data = array(
+            'title' => APP_NAME.' | Beach Controls',
+            'beaches' => $this->homeModel->getBeaches(),
+        );
+    }
+
     public function loginActivity()
     {
         $data = array(
