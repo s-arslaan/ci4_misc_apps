@@ -15,9 +15,9 @@ class NaiveBayes extends Model
         $part1_count_no = 0;
 
         for ($i = 0; $i < count($part1); $i++) {
-            if ($part1[$i] > "120" or ($part1[$i] < "60")) {
+            if ($part1[$i] > 120 or ($part1[$i] < 60)) {
                 $part1_count_yes++;
-            } elseif ($part1[$i] < "120") {
+            } elseif ($part1[$i] < 120) {
                 $part1_count_no++;
             }
         }
@@ -44,9 +44,9 @@ class NaiveBayes extends Model
         $part1_1_count_no = 0;
 
         for ($i = 0; $i < count($part1_1); $i++) {
-            if ($part1_1[$i] > "120" or ($part1_1[$i] < "60")) {
+            if ($part1_1[$i] > 120 or ($part1_1[$i] < 60)) {
                 $part1_1_count_yes++;
-            } elseif ($part1_1[$i] < "120") {
+            } elseif ($part1_1[$i] < 120) {
                 $part1_1_count_no++;
             }
         }
@@ -69,9 +69,9 @@ class NaiveBayes extends Model
         $part1_2_count_no = 0;
 
         for ($i = 0; $i < count($part1_2); $i++) {
-            if ($part1_2[$i] > "120" or $part1_2[$i] < "60") {
+            if ($part1_2[$i] > 120 or $part1_2[$i] < 60) {
                 $part1_2_count_yes++;
-            } elseif ($part1_2[$i] < "120") {
+            } elseif ($part1_2[$i] < 120) {
                 $part1_2_count_no++;
             }
         }
@@ -93,9 +93,9 @@ class NaiveBayes extends Model
         $part2_count_no = 0;
 
         for ($i = 0; $i < count($part2); $i++) {
-            if ($part2[$i] > "120" or ($part2[$i] < "60")) {
+            if ($part2[$i] > 120 or ($part2[$i] < 60)) {
                 $part2_count_yes++;
-            } elseif ($part2[$i] < "120") {
+            } elseif ($part2[$i] < 120) {
                 $part2_count_no++;
             }
         }
@@ -120,9 +120,9 @@ class NaiveBayes extends Model
         $part2_1_count_no = 0;
 
         for ($i = 0; $i < count($part2_1); $i++) {
-            if ($part2_1[$i] > "120" or ($part2_1[$i] < "60")) {
+            if ($part2_1[$i] > 120 or ($part2_1[$i] < 60)) {
                 $part2_1_count_yes++;
-            } elseif ($part2_1[$i] < "120") {
+            } elseif ($part2_1[$i] < 120) {
                 $part2_1_count_no++;
             }
         }
@@ -145,9 +145,9 @@ class NaiveBayes extends Model
         $part2_2_count_no = 0;
 
         for ($i = 0; $i < count($part2_2); $i++) {
-            if ($part2_2[$i] > "120" or $part2_2[$i] < "60") {
+            if ($part2_2[$i] > 120 or $part2_2[$i] < 60) {
                 $part2_2_count_yes++;
-            } elseif ($part2_2[$i] < "120") {
+            } elseif ($part2_2[$i] < 120) {
                 $part2_2_count_no++;
             }
         }
