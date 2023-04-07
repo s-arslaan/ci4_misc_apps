@@ -35,7 +35,7 @@ class Attendance extends BaseController
             return redirect()->to("./auth/login");
         }
         
-        return view('attendance_view', ['title' => 'App | Attendance']);
+        return view('attendance_view', ['title' => APP_NAME.' | Attendance']);
     }
     
     public function getAttendance($type)
@@ -57,7 +57,7 @@ class Attendance extends BaseController
             return redirect()->to("./auth/login");
         }
 
-        return view('timings_view', ['title' => 'App | Timings']);
+        return view('timings_view', ['title' => APP_NAME.' | Timings']);
     }
 
     public function import_attendance()

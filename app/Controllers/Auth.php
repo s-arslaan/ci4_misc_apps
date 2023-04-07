@@ -88,7 +88,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'App | Login',
+            'title' => APP_NAME.' | Login',
         );
 
         return view('login', $data);
@@ -139,7 +139,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'App | Register User',
+            'title' => APP_NAME.' | Register User',
         );
         return view('register', $data);
     }
@@ -212,7 +212,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'App | Forgot Password',
+            'title' => APP_NAME.' | Forgot Password',
         );
         return view('forgot_view', $data);
     }
@@ -258,7 +258,7 @@ class Auth extends BaseController
         }
 
         $data = array(
-            'title' => 'App | Reset Password',
+            'title' => APP_NAME.' | Reset Password',
         );
         return view('resetPassword_view', $data);
 

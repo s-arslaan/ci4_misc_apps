@@ -45,7 +45,7 @@ class Home extends BaseController
         }
 
         $data = array(
-            'title' => 'Beach App | Dashboard',
+            'title' => APP_NAME.' | Dashboard',
             'alerts' => $this->userModel->getAlerts(),
             'successful_rescues_count' => $this->homeModel->getSuccessfulRescueCount(),
             'todays_alerts' => $this->homeModel->getTodaysAlertCount(),
@@ -67,7 +67,7 @@ class Home extends BaseController
         $userdata = $this->userModel->getUserDetails($unique_id);
 
         $data = array(
-            'title' => 'Beach App | User Profile',
+            'title' => APP_NAME.' | User Profile',
             'user' => $userdata,
         );
 
@@ -150,7 +150,7 @@ class Home extends BaseController
     public function loginActivity()
     {
         $data = array(
-            'title' => 'App | Login Activity',
+            'title' => APP_NAME.' | Login Activity',
             'team' => 'App ',
             // 'userdata' => $this->homeModel->getLoggedinUserData(session()->get('logged_user')),
             'login_info' => $this->homeModel->getLoginActivity()

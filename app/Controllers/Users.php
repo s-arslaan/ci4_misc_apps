@@ -38,7 +38,7 @@ class Users extends BaseController
         // dd($_SESSION);
 
         $data = array(
-            'title' => 'Beach App | Web Users',
+            'title' => APP_NAME.' | Web Users',
             'users' => $this->userModel->getWebUsers()
         );
         
@@ -54,7 +54,7 @@ class Users extends BaseController
         // dd($_SESSION);
 
         $data = array(
-            'title' => 'Beach App | Beach Users',
+            'title' => APP_NAME.' | Beach Users',
             'users' => $this->userModel->getBeachUsers()
         );
         
@@ -67,7 +67,7 @@ class Users extends BaseController
             return redirect()->to("./auth/login");
         }
 
-        return view('timings_view', ['title' => 'App | Timings']);
+        return view('timings_view', ['title' => APP_NAME.' | Timings']);
     }
     
     // remap function for checking if method exists with accepted parameter
