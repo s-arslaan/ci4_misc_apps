@@ -10,6 +10,12 @@ class NaiveBayes extends Model
 
     public function part1($beats)
     {
+        $beats_final = [];
+        foreach ($beats as $value) {
+            $beats_final[] = $value;
+        }
+
+        $beats = $beats_final;
         $part1 = array_slice($beats, -6, 6);
         $part1_count_yes = 0;
         $part1_count_no = 0;
@@ -28,11 +34,11 @@ class NaiveBayes extends Model
         if ($part1_probability_yes > $part1_probability_no) {
             return true;
         } elseif ($part1_probability_yes == $part1_probability_no) {
-            $this->part1_1($beats);
+            return $this->part1_1($beats);
         } elseif ($part1_probability_yes != 0) {
             return false;
         } else {
-            $this->part2($beats);
+            return $this->part2($beats);
         }
     }
 
@@ -57,7 +63,7 @@ class NaiveBayes extends Model
         if ($part1_1_probability_yes > $part1_1_probability_no) {
             return true;
         } else {
-            $this->part1_2($beats);
+            return $this->part1_2($beats);
         }
     }
 
@@ -82,7 +88,7 @@ class NaiveBayes extends Model
         if ($part1_2_probability_yes > $part1_2_probability_no) {
             return true;
         } else {
-            $this->part2($beats);
+            return $this->part2($beats);
         }
     }
 
@@ -106,7 +112,7 @@ class NaiveBayes extends Model
         if ($part2_probability_yes > $part2_probability_no) {
             return true;
         } elseif ($part2_probability_yes == $part2_probability_no) {
-            $this->part2_1($beats);
+            return $this->part2_1($beats);
         } else {
             return false;
         }
@@ -133,7 +139,7 @@ class NaiveBayes extends Model
         if ($part2_1_probability_yes > $part2_1_probability_no) {
             return true;
         } else {
-            $this->part2_2($beats);
+            return $this->part2_2($beats);
         }
     }
 

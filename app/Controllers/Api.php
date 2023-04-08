@@ -50,7 +50,7 @@ class Api extends BaseController
 
                 $mid_point_lat = 15.391777;
                 $mid_point_long = 73.804167;
-                $max_distance = 300; // in meters
+                $max_distance = 200; // in meters
 
                 // $beach_dist = $this->apiModel->haversineGreatCircleDistance((float)$data['latitude'], (float)$data['longitude'], $mid_point_lat, $mid_point_long);
                 // echo $beach_dist;exit;
@@ -60,11 +60,13 @@ class Api extends BaseController
                     Hav(0) = sin^2 (0/2)
                 */
 
-                if ($this->apiModel->haversineGreatCircleDistance((float)$data['latitude'], (float)$data['longitude'], $mid_point_lat, $mid_point_long) < $max_distance) {
+                $distance = $this->apiModel->haversineGreatCircleDistance((float)$data['latitude'], (float)$data['longitude'], $mid_point_lat, $mid_point_long);
+
+                if ($distance < $max_distance) {
                     if ($this->apiModel->storeAlert($data)) {
                         $response = array(
                             'status'   => 201,
-                            'msg' => 'Alert generated successfully',
+                            'msg' => "Alert generated successfully, Distance: $distance",
                             'success' => true
                         );
                     } else {
@@ -77,7 +79,7 @@ class Api extends BaseController
                 } else {
                     $response = array(
                         'status'   => 300,
-                        'msg'    => 'Invalid Alert!',
+                        'msg'    => "Invalid Alert, Distance: $distance!",
                         'success' => false
                     );
                 }
@@ -164,7 +166,7 @@ class Api extends BaseController
 
             if ($this->request->getMethod() == 'post') {
 
-                $beats = $this->request->getVar('beats', FILTER_DEFAULT);
+                $beats = $this->request->getVar('beats');
 
                 if ($this->naiveBayesModel->part1($beats)) {
 

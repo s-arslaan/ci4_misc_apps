@@ -42,20 +42,16 @@ class ApiModel extends Model
     /**
      * Calculates the great-circle distance between two points, with
      * the Haversine formula.
-     * @param float $latitudeFrom Latitude of start point in [deg decimal]
-     * @param float $longitudeFrom Longitude of start point in [deg decimal]
-     * @param float $latitudeTo Latitude of target point in [deg decimal]
-     * @param float $longitudeTo Longitude of target point in [deg decimal]
-     * @param float $earthRadius Mean earth radius in [m]
+     * @author Arslaan Shaikh
+     * @param float Latitude of start point in [deg decimal]
+     * @param float Longitude of start point in [deg decimal]
+     * @param float Latitude of target point in [deg decimal]
+     * @param float Longitude of target point in [deg decimal]
+     * @param float Mean earth radius in [m]
      * @return float Distance between points in [m] (same as earthRadius)
      */
-    function haversineGreatCircleDistance(
-        $latitudeFrom,
-        $longitudeFrom,
-        $latitudeTo,
-        $longitudeTo,
-        $earthRadius = 6371000
-    ) {
+    function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371000) {
+
         // convert from degrees to radians
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
