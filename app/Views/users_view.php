@@ -7,7 +7,7 @@
             <div class="col-12 mb-2">
                 <div class="d-flex align-items-center">
                     <h2>Users</h2>
-                    <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
+                    <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addUserModal">Add web User</button>
                 </div>
             </div>
             <div class="col-12">
@@ -64,7 +64,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="./auth/register">
+                <form method="POST" action="./auth/register" id="newUserForm">
                     <div class="form-floating mb-3 ">
                         <input class="form-control" id="inputName" name="name" type="text" placeholder="Enter your name" required />
                         <label for="inputFirstName">Name*</label>
@@ -115,16 +115,81 @@
                 <div class="row mb-3">
                     <div class="col-md-2">
                         <div class="form-floating mb-3 mb-md-0">
-
                             <a class="btn btn-primary btn-sm" href="users/delete_user/<?php echo $user['unique_id']; ?>">Delete</a>
-
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <?= $this->endSection("content") ?>
+<script>
+    $(document).ready(function() {
+        $('#newUserForm').submit(function(e) {
+            // Prevent the default form submission behavior
+            e.preventDefault();
+
+            var confirmPassField = $(this).find('input[name="confirm_password"]');
+            var newPassField = $(this).find('input[name="password"]');
+            var confirmPass = confirmPassField.val();
+            var newPass = newPassField.val();
+            
+            var nameField = $(this).find('input[name="name"]');
+            var name = nameField.val();
+            if(name.length < 3){
+                nameField.addClass('is-invalid');
+                toastr.error('Name should be atleast 3 characters long');
+            }
+            
+            
+            var mobileField = $(this).find('input[name="mobile"]');
+            var mobile = mobileField.val();
+            var mobileRegex = /^[6-9]\d{9,}$/;
+            if (!mobileRegex.test(mobile)) {
+                mobileField.addClass('is-invalid');
+                toastr.error('Invalid Mobile Number');
+            }
+
+            var emailRegex = /^\S+@\S+\.\S+$/;
+
+            var emailField = $(this).find('input[name="email"]');
+            if (!emailRegex.test(emailField.val())) {
+                emailField.addClass('is-invalid');
+                toastr.error('Invalid Email Address');
+            }
+
+            if (confirmPass !== newPass) {
+                newPassField.addClass('is-invalid');
+                confirmPassField.addClass('is-invalid');
+                toastr.error('Passwords Does Not match');
+            } else {
+
+                if (newPass.length < 8) {
+                    newPassField.addClass('is-invalid');
+                    toastr.error('Password should be atleast 8 characters long');
+                } else {
+                    // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+                    if (!passwordRegex.test(newPass)) {
+                        newPassField.addClass('is-invalid');
+                        toastr.error('Password should have <br>at least one Letter, <br>one Number <br>One Special Character');
+                    }
+                }
+
+            }
+
+            // If all required fields are valid, submit the form
+            if ($(this).find('.is-invalid').length == 0) {
+                $(this).unbind('submit').submit();
+            }
+        });
+
+        $("select, input").change(function() {
+            $(this).removeClass("is-invalid");
+        });
+    });
+</script>
+
+<?= $this->endSection("content") ?>
