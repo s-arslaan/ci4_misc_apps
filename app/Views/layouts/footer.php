@@ -32,8 +32,8 @@
     $(document).ready(function() {
 
       toastr.options.positionClass = "toast-top-center";
-      toastr.options.timeOut = 2000;
-      toastr.options.extendedTimeOut = 1000;
+      toastr.options.timeOut = 3000;
+      toastr.options.extendedTimeOut = 2000;
 
       <?php if (session()->getTempdata('success')) : ?>
         toastr.success(<?= "'" . session()->getTempdata('success') . "'"; ?>);

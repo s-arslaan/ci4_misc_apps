@@ -66,7 +66,7 @@ class Api extends BaseController
                     if ($this->apiModel->storeAlert($data)) {
                         $response = array(
                             'status'   => 201,
-                            'msg' => "Alert generated successfully, Distance: $distance",
+                            'msg' => "Alert generated successfully",
                             'success' => true
                         );
                     } else {
@@ -79,7 +79,7 @@ class Api extends BaseController
                 } else {
                     $response = array(
                         'status'   => 300,
-                        'msg'    => "Invalid Alert, Distance: $distance!",
+                        'msg'    => "Invalid Alert!",
                         'success' => false
                     );
                 }

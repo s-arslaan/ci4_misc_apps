@@ -185,15 +185,19 @@
                 <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="./editProfile">
+            <form method="post" action="./editProfile" id="changePassForm">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Current Password:</label>
                         <input type="password" class="form-control" name="curr-pass" id="curr-pass">
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">New Password:</label>
+                        <label for="new-pass" class="col-form-label">New Password:</label>
                         <input type="password" class="form-control" name="new-pass" id="new-pass">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-cpass" class="col-form-label">Confirm Password:</label>
+                        <input type="password" class="form-control" name="new-cpass" id="new-cpass">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -204,5 +208,50 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#changePassForm').submit(function(e) {
+            // Prevent the default form submission behavior
+            e.preventDefault();
+
+            var confirmPassField = $(this).find('input[name="new-cpass"]');
+            var newPassField = $(this).find('input[name="new-pass"]');
+            var confirmPass = confirmPassField.val();
+            var newPass = newPassField.val();
+
+            if (confirmPass !== newPass) {
+                newPassField.addClass('is-invalid');
+                confirmPassField.addClass('is-invalid');
+                toastr.error('Passwords Does Not match');
+            } else {
+
+                if (newPass.length < 8) {
+                    newPassField.addClass('is-invalid');
+                    toastr.error('New Password should be atleast 8 characters long');
+                }
+                else {
+                    // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        
+                    if (!passwordRegex.test(newPass)) {
+                        newPassField.addClass('is-invalid');
+                        toastr.error('Password should have <br>at least one Letter, <br>one Number <br>One Special Character');
+                    }
+                }
+    
+            }            
+
+            // If all required fields are valid, submit the form
+            if ($(this).find('.is-invalid').length == 0) {
+                $(this).unbind('submit').submit();
+            }
+        });
+
+        $("select, input").change(function() {
+            $(this).removeClass("is-invalid");
+        });
+    });
+</script>
 
 <?= $this->endSection("content") ?>
